@@ -1,0 +1,21 @@
+B 3 C o m p i l a t i o n
+B 39 Equation Listing    SOLVE model1 Using MIP From line 25
+D 42 objectiveFunction
+D 47 unicidadEmpleado
+D 58 unicidadEmpleo
+B 70 Column Listing      SOLVE model1 Using MIP From line 25
+E 73 z
+E 80 X
+B 103 Range Statistics    SOLVE model1 Using MIP From line 25
+B 114 Model Statistics    SOLVE model1 Using MIP From line 25
+B 127 Solution Report     SOLVE model1 Using MIP From line 25
+F 172 objectiveFunction
+F 174 unicidadEmpleado
+F 183 unicidadEmpleo
+G 194 z
+G 198 X
+B 225 E x e c u t i o n
+I 227 "Relación ..."
+I 228 X
+I 239 "Mínimo de..."
+I 240 z

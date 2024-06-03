@@ -1,0 +1,240 @@
+GAMS 46.3.0  cc87b1db Mar 19, 2024          WEX-WEI x86 64bit/MS Windows - 04/09/24 15:58:12 Page 1
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+C o m p i l a t i o n
+
+
+   1  Sets
+   2      i Origen (filas) /o1, o2, o3/
+   3      j  Destino (columnas) /d1, d2, d3, d4/;
+   4   
+   5  Parameters
+   6      oferta(i) /o1 300, o2 500, o3 200/
+   7      demanda(j) /d1 200, d2 300, d3 100, d4 400/;
+   8   
+   9  Table costos(i, j)
+  10      d1  d2  d3  d4
+  11  o1   8   6   10  9
+  12  o2   9   12  13  7
+  13  o3   14  9   16  5;
+  14   
+  15  Positive Variables
+  16      x(i, j);
+  17   
+  18  Variables
+  19      z;
+  20   
+  21  Equations
+  22      objectiveFunction
+  23      restriccionOferta(i)
+  24      restriccionDemanda(j);
+  25   
+  26  objectiveFunction           ..  z=e= sum((i, j), x(i, j)*costos(i, j));
+  27  restriccionOferta(i)        ..  sum(j, x(i, j)) =l= oferta(i);
+  28  restriccionDemanda(j)       ..  sum(i, x(i, j)) =e= demanda(j);
+  29   
+  30  Model model1 /all/ ;
+  31  option mip=cplex;
+  32  Solve model1 using lp minimizing z;
+  33   
+  34  Display 'Relación Origen - Destino: ', X.l;
+  35  Display 'Costo total: ', z.l;
+
+
+COMPILATION TIME     =        0.031 SECONDS      3 MB  46.3.0 cc87b1db WEX-WEI
+GAMS 46.3.0  cc87b1db Mar 19, 2024          WEX-WEI x86 64bit/MS Windows - 04/09/24 15:58:12 Page 2
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Equation Listing    SOLVE model1 Using LP From line 32
+
+
+---- objectiveFunction  =E=  
+
+objectiveFunction..  - 8*x(o1,d1) - 6*x(o1,d2) - 10*x(o1,d3) - 9*x(o1,d4) - 9*x(o2,d1) - 12*x(o2,d2) - 13*x(o2,d3) - 7*x(o2,d4) - 14*x(o3,d1) - 9*x(o3,d2) - 16*x(o3,d3) - 5*x(o3,d4) + z =E= 0 ; (LHS = 0)
+     
+
+---- restriccionOferta  =L=  
+
+restriccionOferta(o1)..  x(o1,d1) + x(o1,d2) + x(o1,d3) + x(o1,d4) =L= 300 ; (LHS = 0)
+     
+restriccionOferta(o2)..  x(o2,d1) + x(o2,d2) + x(o2,d3) + x(o2,d4) =L= 500 ; (LHS = 0)
+     
+restriccionOferta(o3)..  x(o3,d1) + x(o3,d2) + x(o3,d3) + x(o3,d4) =L= 200 ; (LHS = 0)
+     
+
+---- restriccionDemanda  =E=  
+
+restriccionDemanda(d1)..  x(o1,d1) + x(o2,d1) + x(o3,d1) =E= 200 ; (LHS = 0, INFES = 200 ****)
+     
+restriccionDemanda(d2)..  x(o1,d2) + x(o2,d2) + x(o3,d2) =E= 300 ; (LHS = 0, INFES = 300 ****)
+     
+restriccionDemanda(d3)..  x(o1,d3) + x(o2,d3) + x(o3,d3) =E= 100 ; (LHS = 0, INFES = 100 ****)
+     
+REMAINING ENTRY SKIPPED
+
+GAMS 46.3.0  cc87b1db Mar 19, 2024          WEX-WEI x86 64bit/MS Windows - 04/09/24 15:58:12 Page 3
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Column Listing      SOLVE model1 Using LP From line 32
+
+
+---- x  
+
+x(o1,d1)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+       -8       objectiveFunction
+        1       restriccionOferta(o1)
+        1       restriccionDemanda(d1)
+
+x(o1,d2)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+       -6       objectiveFunction
+        1       restriccionOferta(o1)
+        1       restriccionDemanda(d2)
+
+x(o1,d3)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+      -10       objectiveFunction
+        1       restriccionOferta(o1)
+        1       restriccionDemanda(d3)
+
+REMAINING 9 ENTRIES SKIPPED
+
+---- z  
+
+z
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+        1       objectiveFunction
+
+GAMS 46.3.0  cc87b1db Mar 19, 2024          WEX-WEI x86 64bit/MS Windows - 04/09/24 15:58:12 Page 4
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Range Statistics    SOLVE model1 Using LP From line 32
+
+
+RANGE STATISTICS (ABSOLUTE NON-ZERO FINITE VALUES)
+
+RHS       [min, max] : [ 1.000E+02, 5.000E+02] - Zero values observed as well
+Bound     [min, max] : [        NA,        NA] - Zero values observed as well
+Matrix    [min, max] : [ 1.000E+00, 1.600E+01]
+
+GAMS 46.3.0  cc87b1db Mar 19, 2024          WEX-WEI x86 64bit/MS Windows - 04/09/24 15:58:12 Page 5
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Model Statistics    SOLVE model1 Using LP From line 32
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           3     SINGLE EQUATIONS            8
+BLOCKS OF VARIABLES           2     SINGLE VARIABLES           13
+NON ZERO ELEMENTS            37
+
+
+GENERATION TIME      =        0.375 SECONDS      4 MB  46.3.0 cc87b1db WEX-WEI
+GAMS 46.3.0  cc87b1db Mar 19, 2024          WEX-WEI x86 64bit/MS Windows - 04/09/24 15:58:12 Page 6
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Solution Report     SOLVE model1 Using LP From line 32
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   model1              OBJECTIVE  z
+     TYPE    LP                  DIRECTION  MINIMIZE
+     SOLVER  CPLEX               FROM LINE  32
+
+**** SOLVER STATUS     1 Normal Completion
+**** MODEL STATUS      1 Optimal
+**** OBJECTIVE VALUE             7300.0000
+
+ RESOURCE USAGE, LIMIT          0.093 10000000000.000
+ ITERATION COUNT, LIMIT         3    2147483647
+*** This solver runs with a community license. No commercial use.
+--- GMO setup time: 0.00s
+--- GMO memory 0.50 Mb (peak 0.50 Mb)
+--- Dictionary memory 0.00 Mb
+--- Cplex 22.1.1.0 link memory 0.00 Mb (peak 0.00 Mb)
+--- Starting Cplex
+
+
+--- LP status (1): optimal.
+--- Cplex Time: 0.09sec (det. 0.02 ticks)
+
+
+Optimal solution found
+Objective:         7300.000000
+
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- EQU objective~          .              .              .             1.0000      
+
+---- EQU restriccionOferta  
+
+          LOWER          LEVEL          UPPER         MARGINAL
+
+o1        -INF          300.0000       300.0000        -3.0000      
+o2        -INF          500.0000       500.0000          .          
+o3        -INF          200.0000       200.0000        -2.0000      
+
+---- EQU restriccionDemanda  
+
+          LOWER          LEVEL          UPPER         MARGINAL
+
+d1       200.0000       200.0000       200.0000         9.0000      
+d2       300.0000       300.0000       300.0000         9.0000      
+d3       100.0000       100.0000       100.0000        13.0000      
+d4       400.0000       400.0000       400.0000         7.0000      
+
+---- VAR x  
+
+             LOWER          LEVEL          UPPER         MARGINAL
+
+o1.d1          .              .            +INF            2.0000      
+o1.d2          .           300.0000        +INF             .          
+o1.d3          .              .            +INF             .          
+o1.d4          .              .            +INF            5.0000      
+o2.d1          .           200.0000        +INF             .          
+o2.d2          .              .            +INF            3.0000      
+o2.d3          .           100.0000        +INF             .          
+o2.d4          .           200.0000        +INF             .          
+o3.d1          .              .            +INF            7.0000      
+o3.d2          .              .            +INF            2.0000      
+o3.d3          .              .            +INF            5.0000      
+o3.d4          .           200.0000        +INF             .          
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- VAR z                 -INF         7300.0000        +INF             .          
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+GAMS 46.3.0  cc87b1db Mar 19, 2024          WEX-WEI x86 64bit/MS Windows - 04/09/24 15:58:12 Page 7
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+E x e c u t i o n
+
+
+----     34 Relación Origen - Destino: 
+
+----     34 VARIABLE x.L  
+
+            d1          d2          d3          d4
+
+o1                 300.000
+o2     200.000                 100.000     200.000
+o3                                         200.000
+
+
+----     35 Costo total: 
+            VARIABLE z.L                   =     7300.000  
+
+
+EXECUTION TIME       =        1.297 SECONDS      4 MB  46.3.0 cc87b1db WEX-WEI
+
+
+USER: GAMS Community License for Sebastian Murcia    G240125|0002AO-GEN
+      Universidad de los Andes, Computer and Systems Engineering CL9328
+      License for teaching and research at degree granting institutions
+
+
+**** FILE SUMMARY
+
+Input      D:\Biblioteca\Escritorio\Universidad\MOS\Procesadores\procesadores.gms
+Output     D:\Biblioteca\Escritorio\Universidad\MOS\Procesadores\procesadores.lst

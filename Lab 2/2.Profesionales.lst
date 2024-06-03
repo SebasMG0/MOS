@@ -1,0 +1,266 @@
+GAMS 45.7.0  64fbf3ce Jan 18, 2024          WEX-WEI x86 64bit/MS Windows - 03/06/24 23:16:10 Page 1
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+C o m p i l a t i o n
+
+
+   1  Sets
+   2      i Técnica (filas) /S, NS, DL, RL/
+   3      j  Científicos (columnas) /c1*c6/;
+   4   
+   5  Table relacionesTC(i, j)
+   6      c1  c2  c3  c4  c5  c6
+   7  S   85  88  87  82  91  68
+   8  NS  78  77  77  76  79  78
+   9  DL  82  81  82  80  86  81
+  10  RL  84  84  88  83  84  85
+  11  ;
+  12   
+  13  Variables z Función objetivo;
+  14  Binary Variable X(i, j) Determina la relación Técnica-Científico;
+  15  Equations
+  16      objectiveFunction
+  17      unicidadTecnica (i)
+  18      unicidadCientifico(j);
+  19   
+  20  objectiveFunction              ..  z =e= sum((i,j), X(i,j)*relacionesTC(i, j));
+  21  unicidadTecnica (i)            ..  sum(j, X(i, j)) =e= 1;
+  22  unicidadCientifico(j)          ..  sum(i, X(i, j)) =l= 1;
+  23   
+  24   
+  25  Model model1 /all/ ;
+  26  option mip=cplex
+  27  Solve model1 using mip maximizing z;
+  28   
+  29  Display 'Relación Técnica - Científico: ', X.l;
+  30  Display 'Puntos totales: ', z.l;
+
+
+COMPILATION TIME     =        0.000 SECONDS      3 MB  45.7.0 64fbf3ce WEX-WEI
+GAMS 45.7.0  64fbf3ce Jan 18, 2024          WEX-WEI x86 64bit/MS Windows - 03/06/24 23:16:10 Page 2
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Equation Listing    SOLVE model1 Using MIP From line 27
+
+
+---- objectiveFunction  =E=  
+
+objectiveFunction..  z - 85*X(S,c1) - 88*X(S,c2) - 87*X(S,c3) - 82*X(S,c4) - 91*X(S,c5) - 68*X(S,c6) - 78*X(NS,c1) - 77*X(NS,c2) - 77*X(NS,c3) - 76*X(NS,c4) - 79*X(NS,c5) - 78*X(NS,c6) - 82*X(DL,c1) - 81*X(DL,c2) - 82*X(DL,c3) - 80*X(DL,c4) - 86*X(DL,c5) - 81*X(DL,c6) - 84*X(RL,c1) - 84*X(RL,c2) - 88*X(RL,c3) - 83*X(RL,c4) - 84*X(RL,c5) - 85*X(RL,c6) =E= 0 ; (LHS = 0)
+     
+
+---- unicidadTecnica  =E=  
+
+unicidadTecnica(S)..  X(S,c1) + X(S,c2) + X(S,c3) + X(S,c4) + X(S,c5) + X(S,c6) =E= 1 ; (LHS = 0, INFES = 1 ****)
+     
+unicidadTecnica(NS)..  X(NS,c1) + X(NS,c2) + X(NS,c3) + X(NS,c4) + X(NS,c5) + X(NS,c6) =E= 1 ; (LHS = 0, INFES = 1 ****)
+     
+unicidadTecnica(DL)..  X(DL,c1) + X(DL,c2) + X(DL,c3) + X(DL,c4) + X(DL,c5) + X(DL,c6) =E= 1 ; (LHS = 0, INFES = 1 ****)
+     
+REMAINING ENTRY SKIPPED
+
+
+---- unicidadCientifico  =L=  
+
+unicidadCientifico(c1)..  X(S,c1) + X(NS,c1) + X(DL,c1) + X(RL,c1) =L= 1 ; (LHS = 0)
+     
+unicidadCientifico(c2)..  X(S,c2) + X(NS,c2) + X(DL,c2) + X(RL,c2) =L= 1 ; (LHS = 0)
+     
+unicidadCientifico(c3)..  X(S,c3) + X(NS,c3) + X(DL,c3) + X(RL,c3) =L= 1 ; (LHS = 0)
+     
+REMAINING 3 ENTRIES SKIPPED
+
+GAMS 45.7.0  64fbf3ce Jan 18, 2024          WEX-WEI x86 64bit/MS Windows - 03/06/24 23:16:10 Page 3
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Column Listing      SOLVE model1 Using MIP From line 27
+
+
+---- z  Función objetivo
+
+z
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+        1       objectiveFunction
+
+
+---- X  Determina la relación Técnica-Científico
+
+X(S,c1)
+                (.LO, .L, .UP, .M = 0, 0, 1, 0)
+      -85       objectiveFunction
+        1       unicidadTecnica(S)
+        1       unicidadCientifico(c1)
+
+X(S,c2)
+                (.LO, .L, .UP, .M = 0, 0, 1, 0)
+      -88       objectiveFunction
+        1       unicidadTecnica(S)
+        1       unicidadCientifico(c2)
+
+X(S,c3)
+                (.LO, .L, .UP, .M = 0, 0, 1, 0)
+      -87       objectiveFunction
+        1       unicidadTecnica(S)
+        1       unicidadCientifico(c3)
+
+REMAINING 21 ENTRIES SKIPPED
+GAMS 45.7.0  64fbf3ce Jan 18, 2024          WEX-WEI x86 64bit/MS Windows - 03/06/24 23:16:10 Page 4
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Range Statistics    SOLVE model1 Using MIP From line 27
+
+
+RANGE STATISTICS (ABSOLUTE NON-ZERO FINITE VALUES)
+
+RHS       [min, max] : [ 1.000E+00, 1.000E+00] - Zero values observed as well
+Bound     [min, max] : [ 1.000E+00, 1.000E+00] - Zero values observed as well
+Matrix    [min, max] : [ 1.000E+00, 9.100E+01]
+
+GAMS 45.7.0  64fbf3ce Jan 18, 2024          WEX-WEI x86 64bit/MS Windows - 03/06/24 23:16:10 Page 5
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Model Statistics    SOLVE model1 Using MIP From line 27
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           3     SINGLE EQUATIONS           11
+BLOCKS OF VARIABLES           2     SINGLE VARIABLES           25
+NON ZERO ELEMENTS            73     DISCRETE VARIABLES         24
+
+
+GENERATION TIME      =        1.766 SECONDS      4 MB  45.7.0 64fbf3ce WEX-WEI
+GAMS 45.7.0  64fbf3ce Jan 18, 2024          WEX-WEI x86 64bit/MS Windows - 03/06/24 23:16:10 Page 6
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Solution Report     SOLVE model1 Using MIP From line 27
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   model1              OBJECTIVE  z
+     TYPE    MIP                 DIRECTION  MAXIMIZE
+     SOLVER  CPLEX               FROM LINE  27
+
+**** SOLVER STATUS     1 Normal Completion
+**** MODEL STATUS      1 Optimal
+**** OBJECTIVE VALUE              340.0000
+
+ RESOURCE USAGE, LIMIT          0.156 10000000000.000
+ ITERATION COUNT, LIMIT         2    2147483647
+*** This solver runs with a demo license. No commercial use.
+--- GMO setup time: 0.00s
+--- GMO memory 0.50 Mb (peak 0.50 Mb)
+--- Dictionary memory 0.00 Mb
+--- Cplex 22.1.1.0 link memory 0.00 Mb (peak 0.00 Mb)
+--- Starting Cplex
+
+
+--- MIP status (101): integer optimal solution.
+--- Cplex Time: 0.16sec (det. 0.14 ticks)
+
+--- Returning a primal only solution to GAMS (marginals all set to NA).
+--- Fixing integer variables and solving final LP...
+
+
+--- Fixed MIP status (1): optimal.
+--- Cplex Time: 0.00sec (det. 0.01 ticks)
+
+
+Proven optimal solution
+MIP Solution:          340.000000    (2 iterations, 0 nodes)
+Final Solve:           340.000000    (0 iterations)
+
+Best possible:         340.000000
+Absolute gap:            0.000000
+Relative gap:            0.000000
+
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- EQU objective~          .              .              .             1.0000      
+
+---- EQU unicidadTecnica  
+
+          LOWER          LEVEL          UPPER         MARGINAL
+
+S          1.0000         1.0000         1.0000          .          
+NS         1.0000         1.0000         1.0000          .          
+DL         1.0000         1.0000         1.0000          .          
+RL         1.0000         1.0000         1.0000          .          
+
+---- EQU unicidadCientifico  
+
+          LOWER          LEVEL          UPPER         MARGINAL
+
+c1        -INF            1.0000         1.0000          .          
+c2        -INF            1.0000         1.0000          .          
+c3        -INF            1.0000         1.0000          .          
+c4        -INF             .             1.0000          .          
+c5        -INF            1.0000         1.0000          .          
+c6        -INF             .             1.0000          .          
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- VAR z                 -INF          340.0000        +INF             .          
+
+  z  Función objetivo
+
+---- VAR X  Determina la relación Técnica-Científico
+
+             LOWER          LEVEL          UPPER         MARGINAL
+
+S .c1          .              .             1.0000        85.0000      
+S .c2          .             1.0000         1.0000        88.0000      
+S .c3          .              .             1.0000        87.0000      
+S .c4          .              .             1.0000        82.0000      
+S .c5          .              .             1.0000        91.0000      
+S .c6          .              .             1.0000        68.0000      
+NS.c1          .             1.0000         1.0000        78.0000      
+NS.c2          .              .             1.0000        77.0000      
+NS.c3          .              .             1.0000        77.0000      
+NS.c4          .              .             1.0000        76.0000      
+NS.c5          .              .             1.0000        79.0000      
+NS.c6          .              .             1.0000        78.0000      
+DL.c1          .              .             1.0000        82.0000      
+DL.c2          .              .             1.0000        81.0000      
+DL.c3          .              .             1.0000        82.0000      
+DL.c4          .              .             1.0000        80.0000      
+DL.c5          .             1.0000         1.0000        86.0000      
+DL.c6          .              .             1.0000        81.0000      
+RL.c1          .              .             1.0000        84.0000      
+RL.c2          .              .             1.0000        84.0000      
+RL.c3          .             1.0000         1.0000        88.0000      
+RL.c4          .              .             1.0000        83.0000      
+RL.c5          .              .             1.0000        84.0000      
+RL.c6          .              .             1.0000        85.0000      
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+GAMS 45.7.0  64fbf3ce Jan 18, 2024          WEX-WEI x86 64bit/MS Windows - 03/06/24 23:16:10 Page 7
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+E x e c u t i o n
+
+
+----     29 Relación Técnica - Científico: 
+
+----     29 VARIABLE X.L  Determina la relación Técnica-Científico
+
+            c1          c2          c3          c5
+
+S                    1.000
+NS       1.000
+DL                                           1.000
+RL                               1.000
+
+
+----     30 Puntos totales: 
+            VARIABLE z.L                   =      340.000  Función objetivo
+
+
+EXECUTION TIME       =        2.016 SECONDS      4 MB  45.7.0 64fbf3ce WEX-WEI
+
+
+USER: GAMS Demo, for EULA and demo limitations see   G230930/0001CB-GEN
+      https://www.gams.com/latest/docs/UG%5FLicense.html         DC0000
+
+
+**** FILE SUMMARY
+
+Input      D:\Biblioteca\Escritorio\Universidad\MOS\Lab 2\2.Profesionales.gms
+Output     D:\Biblioteca\Escritorio\Universidad\MOS\Lab 2\2.Profesionales.lst

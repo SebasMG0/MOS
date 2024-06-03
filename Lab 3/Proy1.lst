@@ -1,0 +1,247 @@
+GAMS 46.3.0  cc87b1db Mar 19, 2024          WEX-WEI x86 64bit/MS Windows - 05/21/24 17:46:19 Page 1
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+C o m p i l a t i o n
+
+
+   1  Sets
+   2      i /r1*r3/,
+   3      j  /ind, bi, tri /;
+   4   
+   5  Parameters
+   6      r(i) /r1 400, r2 300/,
+   7      b(j) /ind 50, bi 100, tri 200/,
+   8      c(j) /ind 500, bi 700, tri 1000/,
+   9      d(j) /ind 6, bi 4, tri 0/;
+  10   
+  11  Integer Variable x(i, j);
+  12  Variable z;
+  13   
+  14  Equations
+  15      objectiveFunction,
+  16      capacidadBuses(i),
+  17      limitacionBuses(j);
+  18   
+  19  * La función Objetivo pretende minimizar los costos. Por lo que se multiplica el costo de cada bus c(j)
+  20  * Por la cantidad de buses que fueron escogidos x(i,j).
+  21  objectiveFunction  .. z =e= sum((i, j), c(j)*x(i, j));
+  22   
+  23  * La siguiente restricción se asegura que la demanda de pasajeros sea cumplida, por lo que para cada ruta
+  24  * se multiplica la capacidad de cada tipo de bus b(j) por el número de buses escogidos de cada tipo.
+  25  * Se suman las capacidades de todos los buses asignados a cada ruta y se verifica que su valor sea mayor
+  26  * o igual al requerido para dicha ruta r(i).
+  27  capacidadBuses(i)   .. sum(j, b(j)*x(i, j)) =g= r(i);
+  28   
+  29  * Dado que se tienen buses limitados, se espera que el modelo no asigne buses inexistentes.
+  30  * Para garantizar lo anterior, la sumatoria de todos los tipos de buses asignados a las rutas no
+  31  * debe superar la cantidad de buses que hay para cada tipo d(j).
+  32  limitacionBuses(j)  ..  sum(i, x(i,j)) =l= d(j);
+  33   
+  34   
+  35  Model model1 /all/ ;
+  36  option mip=cplex;
+  37  Solve model1 using mip minimizing z;
+  38   
+  39  display z.l;
+  40  display x.l;
+
+
+COMPILATION TIME     =        0.000 SECONDS      3 MB  46.3.0 cc87b1db WEX-WEI
+GAMS 46.3.0  cc87b1db Mar 19, 2024          WEX-WEI x86 64bit/MS Windows - 05/21/24 17:46:19 Page 2
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Equation Listing    SOLVE model1 Using MIP From line 37
+
+
+---- objectiveFunction  =E=  
+
+objectiveFunction..  - 500*x(r1,ind) - 700*x(r1,bi) - 1000*x(r1,tri) - 500*x(r2,ind) - 700*x(r2,bi) - 1000*x(r2,tri) - 500*x(r3,ind) - 700*x(r3,bi) - 1000*x(r3,tri) + z =E= 0 ; (LHS = 0)
+     
+
+---- capacidadBuses  =G=  
+
+capacidadBuses(r1)..  50*x(r1,ind) + 100*x(r1,bi) + 200*x(r1,tri) =G= 400 ; (LHS = 0, INFES = 400 ****)
+     
+capacidadBuses(r2)..  50*x(r2,ind) + 100*x(r2,bi) + 200*x(r2,tri) =G= 300 ; (LHS = 0, INFES = 300 ****)
+     
+capacidadBuses(r3)..  50*x(r3,ind) + 100*x(r3,bi) + 200*x(r3,tri) =G= 0 ; (LHS = 0)
+     
+
+---- limitacionBuses  =L=  
+
+limitacionBuses(ind)..  x(r1,ind) + x(r2,ind) + x(r3,ind) =L= 6 ; (LHS = 0)
+     
+limitacionBuses(bi)..  x(r1,bi) + x(r2,bi) + x(r3,bi) =L= 4 ; (LHS = 0)
+     
+limitacionBuses(tri)..  x(r1,tri) + x(r2,tri) + x(r3,tri) =L= 0 ; (LHS = 0)
+     
+GAMS 46.3.0  cc87b1db Mar 19, 2024          WEX-WEI x86 64bit/MS Windows - 05/21/24 17:46:19 Page 3
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Column Listing      SOLVE model1 Using MIP From line 37
+
+
+---- x  
+
+x(r1,ind)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+     -500       objectiveFunction
+       50       capacidadBuses(r1)
+        1       limitacionBuses(ind)
+
+x(r1,bi)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+     -700       objectiveFunction
+      100       capacidadBuses(r1)
+        1       limitacionBuses(bi)
+
+x(r1,tri)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+    -1000       objectiveFunction
+      200       capacidadBuses(r1)
+        1       limitacionBuses(tri)
+
+REMAINING 6 ENTRIES SKIPPED
+
+---- z  
+
+z
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+        1       objectiveFunction
+
+GAMS 46.3.0  cc87b1db Mar 19, 2024          WEX-WEI x86 64bit/MS Windows - 05/21/24 17:46:19 Page 4
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Range Statistics    SOLVE model1 Using MIP From line 37
+
+
+RANGE STATISTICS (ABSOLUTE NON-ZERO FINITE VALUES)
+
+RHS       [min, max] : [ 4.000E+00, 4.000E+02] - Zero values observed as well
+Bound     [min, max] : [        NA,        NA] - Zero values observed as well
+Matrix    [min, max] : [ 1.000E+00, 1.000E+03]
+
+GAMS 46.3.0  cc87b1db Mar 19, 2024          WEX-WEI x86 64bit/MS Windows - 05/21/24 17:46:19 Page 5
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Model Statistics    SOLVE model1 Using MIP From line 37
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           3     SINGLE EQUATIONS            7
+BLOCKS OF VARIABLES           2     SINGLE VARIABLES           10
+NON ZERO ELEMENTS            28     DISCRETE VARIABLES          9
+
+
+GENERATION TIME      =        0.282 SECONDS      4 MB  46.3.0 cc87b1db WEX-WEI
+GAMS 46.3.0  cc87b1db Mar 19, 2024          WEX-WEI x86 64bit/MS Windows - 05/21/24 17:46:19 Page 6
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Solution Report     SOLVE model1 Using MIP From line 37
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   model1              OBJECTIVE  z
+     TYPE    MIP                 DIRECTION  MINIMIZE
+     SOLVER  CPLEX               FROM LINE  37
+
+**** SOLVER STATUS     1 Normal Completion
+**** MODEL STATUS      1 Optimal
+**** OBJECTIVE VALUE             5800.0000
+
+ RESOURCE USAGE, LIMIT          0.000 10000000000.000
+ ITERATION COUNT, LIMIT         0    2147483647
+*** This solver runs with a community license. No commercial use.
+--- GMO setup time: 0.00s
+--- GMO memory 0.50 Mb (peak 0.50 Mb)
+--- Dictionary memory 0.00 Mb
+--- Cplex 22.1.1.0 link memory 0.00 Mb (peak 0.00 Mb)
+--- Starting Cplex
+
+
+--- MIP status (101): integer optimal solution.
+--- Cplex Time: 0.00sec (det. 0.01 ticks)
+
+--- Returning a primal only solution to GAMS (marginals all set to NA).
+--- Fixing integer variables and solving final LP...
+
+
+--- Fixed MIP status (1): optimal.
+--- Cplex Time: 0.00sec (det. 0.01 ticks)
+
+
+Proven optimal solution
+MIP Solution:         5800.000000    (0 iterations, 0 nodes)
+Final Solve:          5800.000000    (0 iterations)
+
+Best possible:        5800.000000
+Absolute gap:            0.000000
+Relative gap:            0.000000
+
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- EQU objective~          .              .              .             1.0000      
+
+---- EQU capacidadBuses  
+
+          LOWER          LEVEL          UPPER         MARGINAL
+
+r1       400.0000       400.0000        +INF             .          
+r2       300.0000       300.0000        +INF             .          
+r3          .              .            +INF             .          
+
+---- EQU limitacionBuses  
+
+           LOWER          LEVEL          UPPER         MARGINAL
+
+ind        -INF            6.0000         6.0000          .          
+bi         -INF            4.0000         4.0000          .          
+tri        -INF             .              .              .          
+
+---- VAR x  
+
+              LOWER          LEVEL          UPPER         MARGINAL
+
+r1.ind          .             6.0000        +INF          500.0000      
+r1.bi           .             1.0000        +INF          700.0000      
+r1.tri          .              .            +INF         1000.0000      
+r2.ind          .              .            +INF          500.0000      
+r2.bi           .             3.0000        +INF          700.0000      
+r2.tri          .              .            +INF         1000.0000      
+r3.ind          .              .            +INF          500.0000      
+r3.bi           .              .            +INF          700.0000      
+r3.tri          .              .            +INF         1000.0000      
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- VAR z                 -INF         5800.0000        +INF             .          
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+GAMS 46.3.0  cc87b1db Mar 19, 2024          WEX-WEI x86 64bit/MS Windows - 05/21/24 17:46:19 Page 7
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+E x e c u t i o n
+
+
+----     39 VARIABLE z.L                   =     5800.000  
+
+----     40 VARIABLE x.L  
+
+           ind          bi
+
+r1       6.000       1.000
+r2                   3.000
+
+
+
+EXECUTION TIME       =        0.969 SECONDS      4 MB  46.3.0 cc87b1db WEX-WEI
+
+
+USER: GAMS Community License for Sebastian Murcia    G240125|0002AO-GEN
+      Universidad de los Andes, Computer and Systems Engineering CL9328
+      License for teaching and research at degree granting institutions
+
+
+**** FILE SUMMARY
+
+Input      D:\Biblioteca\Escritorio\Universidad\MOS\Lab 3\Proy1.gms
+Output     D:\Biblioteca\Escritorio\Universidad\MOS\Lab 3\Proy1.lst

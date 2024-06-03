@@ -1,0 +1,28 @@
+B 3 C o m p i l a t i o n
+B 52 Equation Listing    SOLVE model1 Using LP From line 35
+D 55 objectiveFunction
+D 60 mayores
+D 67 menores
+B 77 Column Listing      SOLVE model1 Using LP From line 35
+E 80 C
+E 90 A
+E 102 L
+E 114 P
+E 126 z
+B 134 Range Statistics    SOLVE model1 Using LP From line 35
+B 145 Model Statistics    SOLVE model1 Using LP From line 35
+B 158 Solution Report     SOLVE model1 Using LP From line 35
+F 191 objectiveFunction
+F 193 mayores
+F 200 menores
+G 210 C
+G 211 A
+G 212 L
+G 213 P
+G 214 z
+B 228 E x e c u t i o n
+I 230 C
+I 232 A
+I 234 L
+I 236 P
+I 238 z

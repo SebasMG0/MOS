@@ -1,0 +1,17 @@
+B 3 C o m p i l a t i o n
+B 47 Equation Listing    SOLVE vertexCover Using MIP From line 33
+D 50 objectiveFunction
+D 55 coberturaTotal
+B 67 Column Listing      SOLVE vertexCover Using MIP From line 33
+E 70 x
+E 100 z
+B 108 Range Statistics    SOLVE vertexCover Using MIP From line 33
+B 119 Model Statistics    SOLVE vertexCover Using MIP From line 33
+B 132 Solution Report     SOLVE vertexCover Using MIP From line 33
+F 177 objectiveFunction
+F 179 coberturaTotal
+G 196 x
+G 215 z
+B 223 E x e c u t i o n
+I 225 "Vértices ..."
+I 226 x

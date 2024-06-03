@@ -1,0 +1,25 @@
+B 3 C o m p i l a t i o n
+B 70 Equation Listing    SOLVE model1 Using MIP From line 56
+D 73 objectiveFunction
+D 78 numPlayersCondition
+D 83 playerUnicity
+D 88 rolCondition
+D 97 propertyCondition
+B 109 Column Listing      SOLVE model1 Using MIP From line 56
+E 112 p
+E 149 z
+B 157 Range Statistics    SOLVE model1 Using MIP From line 56
+B 168 Model Statistics    SOLVE model1 Using MIP From line 56
+B 181 Solution Report     SOLVE model1 Using MIP From line 56
+F 226 objectiveFunction
+F 227 numPlayersCondition
+F 228 playerUnicity
+F 233 rolCondition
+F 241 propertyCondition
+G 250 p
+G 264 z
+B 272 E x e c u t i o n
+I 274 "Valor máx..."
+I 275 z
+I 277 "Jugadores ..."
+I 278 p

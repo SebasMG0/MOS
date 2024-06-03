@@ -1,0 +1,52 @@
+
+--- Job 1.Procesamiento.gms Start 03/06/24 23:00:25 45.7.0 64fbf3ce WEX-WEI x86 64bit/MS Windows
+--- Applying:
+    D:\Apps\GAMS\gmsprmNT.txt
+--- GAMS Parameters defined
+    Input "D:\Biblioteca\Escritorio\Universidad\MOS\Lab 2\1.Procesamiento.gms"
+    PageSize 0
+    ScrDir "D:\Biblioteca\Escritorio\Universidad\MOS\Lab 2\225a\"
+    SysDir D:\Apps\GAMS\
+    LogOption 3
+    ErrMsg 1
+    ErrorLog 99
+    IDE 1
+    LstTitleLeftAligned 1
+*** License has expired 8 days ago
+Licensee: GAMS Demo, for EULA and demo limitations see   G230930/0001CB-GEN
+          https://www.gams.com/latest/docs/UG%5FLicense.html         DC0000
+          D:\Apps\GAMS\gamslice.txt
+          Demo license for demonstration and instructional purposes only
+Processor information: 1 socket(s), 4 core(s), and 8 thread(s) available
+GAMS 45.7.0   Copyright (C) 1987-2024 GAMS Development. All rights reserved
+--- Starting compilation
+--- 1.Procesamiento.gms(35) 3 Mb 1 Error
+*** Error 140 in D:\Biblioteca\Escritorio\Universidad\MOS\Lab 2\1.Procesamiento.gms
+    Unknown symbol
+--- 1.Procesamiento.gms(39) 3 Mb 2 Errors
+*** Error 257 in D:\Biblioteca\Escritorio\Universidad\MOS\Lab 2\1.Procesamiento.gms
+    Solve statement not checked because of previous errors
+--- 1.Procesamiento.gms(41) 3 Mb 3 Errors
+*** Error 141 in D:\Biblioteca\Escritorio\Universidad\MOS\Lab 2\1.Procesamiento.gms
+    Symbol declared but no values have been assigned. Check for missing
+       data definition, assignment, data loading or implicit assignment
+       via a solve statement. Suppress with $onImplicitAssign.
+       A wild shot: You may have spurious commas in the explanatory
+       text of a declaration. Check symbol reference list.
+--- 1.Procesamiento.gms(42) 3 Mb 4 Errors
+*** Error 141 in D:\Biblioteca\Escritorio\Universidad\MOS\Lab 2\1.Procesamiento.gms
+    Symbol declared but no values have been assigned. Check for missing
+       data definition, assignment, data loading or implicit assignment
+       via a solve statement. Suppress with $onImplicitAssign.
+       A wild shot: You may have spurious commas in the explanatory
+       text of a declaration. Check symbol reference list.
+--- 1.Procesamiento.gms(43) 3 Mb 5 Errors
+*** Error 141 in D:\Biblioteca\Escritorio\Universidad\MOS\Lab 2\1.Procesamiento.gms
+    Symbol declared but no values have been assigned. Check for missing
+       data definition, assignment, data loading or implicit assignment
+       via a solve statement. Suppress with $onImplicitAssign.
+       A wild shot: You may have spurious commas in the explanatory
+       text of a declaration. Check symbol reference list.
+--- 1.Procesamiento.gms(43) 3 Mb 5 Errors
+*** Status: Compilation error(s)
+--- Job 1.Procesamiento.gms Stop 03/06/24 23:00:25 elapsed 0:00:00.041

@@ -1,0 +1,245 @@
+GAMS 46.3.0  cc87b1db Mar 19, 2024          WEX-WEI x86 64bit/MS Windows - 04/03/24 11:50:24 Page 1
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+C o m p i l a t i o n
+
+
+   1  Sets
+   2      i Nodo Origen (filas) /n1*n12/
+   3      alias(j, i);
+   4   
+   5  Table grafo(i, j)
+   6   
+   7      n1  n2  n3  n4  n5  n6  n7  n8  n9  n10 n11 n12
+   8  n1  1   1   1   0   1   0   0   0   0   0   0   0
+   9  n2  1   1   0   0   1   0   0   0   0   0   0   0
+  10  n3  1   0   1   1   1   1   1   1   0   0   0   0
+  11  n4  0   0   1   1   1   1   0   0   0   0   1   0
+  12  n5  1   1   1   1   1   0   0   0   0   1   1   0
+  13  n6  0   0   1   1   0   1   0   1   0   0   1   0
+  14  n7  0   0   1   0   0   0   1   1   0   0   0   1
+  15  n8  0   0   1   0   0   1   1   1   1   0   1   1
+  16  n9  0   0   0   0   0   0   0   1   1   1   1   1
+  17  n10 0   0   0   0   1   0   0   0   1   1   1   0
+  18  n11 0   0   0   1   1   1   0   1   1   1   1   0
+  19  n12 0   0   0   0   0   0   1   1   1   0   0   1
+  20  ;
+  21   
+  22  Binary Variables x(i);
+  23  variables z;
+  24   
+  25  Equations
+  26      objectiveFunction
+  27      coberturaTotal (j);
+  28   
+  29  objectiveFunction    ..  z =e= sum(i, x(i));
+  30  coberturaTotal (j)   ..  sum(i, x(i)*grafo(i, j)) =g= 1;
+  31   
+  32  Model vertexCover /all/;
+  33  Solve vertexCover using MIP minimizing z;
+  34   
+  35   
+  36  display 'Vértices seleccionados:', X.l;
+
+
+COMPILATION TIME     =        0.000 SECONDS      3 MB  46.3.0 cc87b1db WEX-WEI
+GAMS 46.3.0  cc87b1db Mar 19, 2024          WEX-WEI x86 64bit/MS Windows - 04/03/24 11:50:24 Page 2
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Equation Listing    SOLVE vertexCover Using MIP From line 33
+
+
+---- objectiveFunction  =E=  
+
+objectiveFunction..  - x(n1) - x(n2) - x(n3) - x(n4) - x(n5) - x(n6) - x(n7) - x(n8) - x(n9) - x(n10) - x(n11) - x(n12) + z =E= 0 ; (LHS = 0)
+     
+
+---- coberturaTotal  =G=  
+
+coberturaTotal(n1)..  x(n1) + x(n2) + x(n3) + x(n5) =G= 1 ; (LHS = 0, INFES = 1 ****)
+     
+coberturaTotal(n2)..  x(n1) + x(n2) + x(n5) =G= 1 ; (LHS = 0, INFES = 1 ****)
+     
+coberturaTotal(n3)..  x(n1) + x(n3) + x(n4) + x(n5) + x(n6) + x(n7) + x(n8) =G= 1 ; (LHS = 0, INFES = 1 ****)
+     
+REMAINING 9 ENTRIES SKIPPED
+
+GAMS 46.3.0  cc87b1db Mar 19, 2024          WEX-WEI x86 64bit/MS Windows - 04/03/24 11:50:24 Page 3
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Column Listing      SOLVE vertexCover Using MIP From line 33
+
+
+---- x  
+
+x(n1)
+                (.LO, .L, .UP, .M = 0, 0, 1, 0)
+       -1       objectiveFunction
+        1       coberturaTotal(n1)
+        1       coberturaTotal(n2)
+        1       coberturaTotal(n3)
+        1       coberturaTotal(n5)
+
+x(n2)
+                (.LO, .L, .UP, .M = 0, 0, 1, 0)
+       -1       objectiveFunction
+        1       coberturaTotal(n1)
+        1       coberturaTotal(n2)
+        1       coberturaTotal(n5)
+
+x(n3)
+                (.LO, .L, .UP, .M = 0, 0, 1, 0)
+       -1       objectiveFunction
+        1       coberturaTotal(n1)
+        1       coberturaTotal(n3)
+        1       coberturaTotal(n4)
+        1       coberturaTotal(n5)
+        1       coberturaTotal(n6)
+        1       coberturaTotal(n7)
+        1       coberturaTotal(n8)
+
+REMAINING 9 ENTRIES SKIPPED
+
+---- z  
+
+z
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+        1       objectiveFunction
+
+GAMS 46.3.0  cc87b1db Mar 19, 2024          WEX-WEI x86 64bit/MS Windows - 04/03/24 11:50:24 Page 4
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Range Statistics    SOLVE vertexCover Using MIP From line 33
+
+
+RANGE STATISTICS (ABSOLUTE NON-ZERO FINITE VALUES)
+
+RHS       [min, max] : [ 1.000E+00, 1.000E+00] - Zero values observed as well
+Bound     [min, max] : [ 1.000E+00, 1.000E+00] - Zero values observed as well
+Matrix    [min, max] : [ 1.000E+00, 1.000E+00]
+
+GAMS 46.3.0  cc87b1db Mar 19, 2024          WEX-WEI x86 64bit/MS Windows - 04/03/24 11:50:24 Page 5
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Model Statistics    SOLVE vertexCover Using MIP From line 33
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           2     SINGLE EQUATIONS           13
+BLOCKS OF VARIABLES           2     SINGLE VARIABLES           13
+NON ZERO ELEMENTS            75     DISCRETE VARIABLES         12
+
+
+GENERATION TIME      =        0.000 SECONDS      4 MB  46.3.0 cc87b1db WEX-WEI
+GAMS 46.3.0  cc87b1db Mar 19, 2024          WEX-WEI x86 64bit/MS Windows - 04/03/24 11:50:24 Page 6
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Solution Report     SOLVE vertexCover Using MIP From line 33
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   vertexCover         OBJECTIVE  z
+     TYPE    MIP                 DIRECTION  MINIMIZE
+     SOLVER  CPLEX               FROM LINE  33
+
+**** SOLVER STATUS     1 Normal Completion
+**** MODEL STATUS      1 Optimal
+**** OBJECTIVE VALUE                2.0000
+
+ RESOURCE USAGE, LIMIT          0.000 10000000000.000
+ ITERATION COUNT, LIMIT         0    2147483647
+*** This solver runs with a community license. No commercial use.
+--- GMO setup time: 0.00s
+--- GMO memory 0.50 Mb (peak 0.50 Mb)
+--- Dictionary memory 0.00 Mb
+--- Cplex 22.1.1.0 link memory 0.00 Mb (peak 0.00 Mb)
+--- Starting Cplex
+
+
+--- MIP status (101): integer optimal solution.
+--- Cplex Time: 0.00sec (det. 0.03 ticks)
+
+--- Returning a primal only solution to GAMS (marginals all set to NA).
+--- Fixing integer variables and solving final LP...
+
+
+--- Fixed MIP status (1): optimal.
+--- Cplex Time: 0.00sec (det. 0.01 ticks)
+
+
+Proven optimal solution
+MIP Solution:            2.000000    (0 iterations, 0 nodes)
+Final Solve:             2.000000    (0 iterations)
+
+Best possible:           2.000000
+Absolute gap:            0.000000
+Relative gap:            0.000000
+
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- EQU objective~          .              .              .             1.0000      
+
+---- EQU coberturaTotal  
+
+           LOWER          LEVEL          UPPER         MARGINAL
+
+n1          1.0000         1.0000        +INF             .          
+n2          1.0000         1.0000        +INF             .          
+n3          1.0000         2.0000        +INF             .          
+n4          1.0000         1.0000        +INF             .          
+n5          1.0000         1.0000        +INF             .          
+n6          1.0000         1.0000        +INF             .          
+n7          1.0000         1.0000        +INF             .          
+n8          1.0000         1.0000        +INF             .          
+n9          1.0000         1.0000        +INF             .          
+n10         1.0000         1.0000        +INF             .          
+n11         1.0000         2.0000        +INF             .          
+n12         1.0000         1.0000        +INF             .          
+
+---- VAR x  
+
+           LOWER          LEVEL          UPPER         MARGINAL
+
+n1           .              .             1.0000         1.0000      
+n2           .              .             1.0000         1.0000      
+n3           .              .             1.0000         1.0000      
+n4           .              .             1.0000         1.0000      
+n5           .             1.0000         1.0000         1.0000      
+n6           .              .             1.0000         1.0000      
+n7           .              .             1.0000         1.0000      
+n8           .             1.0000         1.0000         1.0000      
+n9           .              .             1.0000         1.0000      
+n10          .              .             1.0000         1.0000      
+n11          .              .             1.0000         1.0000      
+n12          .              .             1.0000         1.0000      
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- VAR z                 -INF            2.0000        +INF             .          
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+GAMS 46.3.0  cc87b1db Mar 19, 2024          WEX-WEI x86 64bit/MS Windows - 04/03/24 11:50:24 Page 7
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+E x e c u t i o n
+
+
+----     36 Vértices seleccionados:
+
+----     36 VARIABLE x.L  
+
+n5 1.000,    n8 1.000
+
+
+
+EXECUTION TIME       =        0.047 SECONDS      4 MB  46.3.0 cc87b1db WEX-WEI
+
+
+USER: GAMS Community License for Sebastian Murcia    G240125|0002AO-GEN
+      Universidad de los Andes, Computer and Systems Engineering CL9328
+      License for teaching and research at degree granting institutions
+
+
+**** FILE SUMMARY
+
+Input      D:\Biblioteca\Escritorio\Universidad\MOS\Lab 2\3.VertexCover.gms
+Output     D:\Biblioteca\Escritorio\Universidad\MOS\Lab 2\3.VertexCover.lst

@@ -1,0 +1,254 @@
+GAMS 45.7.0  64fbf3ce Jan 18, 2024          WEX-WEI x86 64bit/MS Windows - 03/06/24 16:38:29 Page 1
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+C o m p i l a t i o n
+
+
+   1  Sets
+   2      i Empleado (filas) /e1, e2, e3, e4/
+   3      j  Tiempo para completar el trabajo (columnas) /t1, t2, t3, t4/;
+   4   
+   5  Table trabajos(i, j)
+   6      t1  t2  t3  t4
+   7  e1   14  5   8   7
+   8  e2   2   12  6   5
+   9  e3   7   8   3   9
+  10  e4   2   4   6   10;
+  11   
+  12  Variables z Función objetivo;
+  13  Binary Variable X(i, j) Determina la relación empleado-trabajo;
+  14  Equations
+  15      objectiveFunction
+  16      unicidadEmpleado (i)
+  17      unicidadEmpleo (j);
+  18   
+  19  objectiveFunction               ..  z =e= sum((i,j), X(i,j)*trabajos(i, j));
+  20  unicidadEmpleado (i)            ..  sum(j, X(i, j)) =e= 1;
+  21  unicidadEmpleo (j)              ..  sum(i, X(i, j)) =e= 1;
+  22   
+  23  Model model1 /all/ ;
+  24  option mip=cplex
+  25  Solve model1 using mip minimizing z;
+  26   
+  27  Display 'Relación Empleado - Trabajo: ', X.l;
+  28  Display 'Mínimo de horas: ', z.l;
+
+
+COMPILATION TIME     =        0.000 SECONDS      3 MB  45.7.0 64fbf3ce WEX-WEI
+GAMS 45.7.0  64fbf3ce Jan 18, 2024          WEX-WEI x86 64bit/MS Windows - 03/06/24 16:38:29 Page 2
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Equation Listing    SOLVE model1 Using MIP From line 25
+
+
+---- objectiveFunction  =E=  
+
+objectiveFunction..  z - 14*X(e1,t1) - 5*X(e1,t2) - 8*X(e1,t3) - 7*X(e1,t4) - 2*X(e2,t1) - 12*X(e2,t2) - 6*X(e2,t3) - 5*X(e2,t4) - 7*X(e3,t1) - 8*X(e3,t2) - 3*X(e3,t3) - 9*X(e3,t4) - 2*X(e4,t1) - 4*X(e4,t2) - 6*X(e4,t3) - 10*X(e4,t4) =E= 0 ; (LHS = 0)
+     
+
+---- unicidadEmpleado  =E=  
+
+unicidadEmpleado(e1)..  X(e1,t1) + X(e1,t2) + X(e1,t3) + X(e1,t4) =E= 1 ; (LHS = 0, INFES = 1 ****)
+     
+unicidadEmpleado(e2)..  X(e2,t1) + X(e2,t2) + X(e2,t3) + X(e2,t4) =E= 1 ; (LHS = 0, INFES = 1 ****)
+     
+unicidadEmpleado(e3)..  X(e3,t1) + X(e3,t2) + X(e3,t3) + X(e3,t4) =E= 1 ; (LHS = 0, INFES = 1 ****)
+     
+REMAINING ENTRY SKIPPED
+
+
+---- unicidadEmpleo  =E=  
+
+unicidadEmpleo(t1)..  X(e1,t1) + X(e2,t1) + X(e3,t1) + X(e4,t1) =E= 1 ; (LHS = 0, INFES = 1 ****)
+     
+unicidadEmpleo(t2)..  X(e1,t2) + X(e2,t2) + X(e3,t2) + X(e4,t2) =E= 1 ; (LHS = 0, INFES = 1 ****)
+     
+unicidadEmpleo(t3)..  X(e1,t3) + X(e2,t3) + X(e3,t3) + X(e4,t3) =E= 1 ; (LHS = 0, INFES = 1 ****)
+     
+REMAINING ENTRY SKIPPED
+
+GAMS 45.7.0  64fbf3ce Jan 18, 2024          WEX-WEI x86 64bit/MS Windows - 03/06/24 16:38:29 Page 3
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Column Listing      SOLVE model1 Using MIP From line 25
+
+
+---- z  Función objetivo
+
+z
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+        1       objectiveFunction
+
+
+---- X  Determina la relación empleado-trabajo
+
+X(e1,t1)
+                (.LO, .L, .UP, .M = 0, 0, 1, 0)
+      -14       objectiveFunction
+        1       unicidadEmpleado(e1)
+        1       unicidadEmpleo(t1)
+
+X(e1,t2)
+                (.LO, .L, .UP, .M = 0, 0, 1, 0)
+       -5       objectiveFunction
+        1       unicidadEmpleado(e1)
+        1       unicidadEmpleo(t2)
+
+X(e1,t3)
+                (.LO, .L, .UP, .M = 0, 0, 1, 0)
+       -8       objectiveFunction
+        1       unicidadEmpleado(e1)
+        1       unicidadEmpleo(t3)
+
+REMAINING 13 ENTRIES SKIPPED
+GAMS 45.7.0  64fbf3ce Jan 18, 2024          WEX-WEI x86 64bit/MS Windows - 03/06/24 16:38:29 Page 4
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Range Statistics    SOLVE model1 Using MIP From line 25
+
+
+RANGE STATISTICS (ABSOLUTE NON-ZERO FINITE VALUES)
+
+RHS       [min, max] : [ 1.000E+00, 1.000E+00] - Zero values observed as well
+Bound     [min, max] : [ 1.000E+00, 1.000E+00] - Zero values observed as well
+Matrix    [min, max] : [ 1.000E+00, 1.400E+01]
+
+GAMS 45.7.0  64fbf3ce Jan 18, 2024          WEX-WEI x86 64bit/MS Windows - 03/06/24 16:38:29 Page 5
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Model Statistics    SOLVE model1 Using MIP From line 25
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           3     SINGLE EQUATIONS            9
+BLOCKS OF VARIABLES           2     SINGLE VARIABLES           17
+NON ZERO ELEMENTS            49     DISCRETE VARIABLES         16
+
+
+GENERATION TIME      =        0.000 SECONDS      4 MB  45.7.0 64fbf3ce WEX-WEI
+GAMS 45.7.0  64fbf3ce Jan 18, 2024          WEX-WEI x86 64bit/MS Windows - 03/06/24 16:38:29 Page 6
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Solution Report     SOLVE model1 Using MIP From line 25
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   model1              OBJECTIVE  z
+     TYPE    MIP                 DIRECTION  MINIMIZE
+     SOLVER  CPLEX               FROM LINE  25
+
+**** SOLVER STATUS     1 Normal Completion
+**** MODEL STATUS      1 Optimal
+**** OBJECTIVE VALUE               15.0000
+
+ RESOURCE USAGE, LIMIT          0.000 10000000000.000
+ ITERATION COUNT, LIMIT         3    2147483647
+*** This solver runs with a demo license. No commercial use.
+--- GMO setup time: 0.00s
+--- GMO memory 0.50 Mb (peak 0.50 Mb)
+--- Dictionary memory 0.00 Mb
+--- Cplex 22.1.1.0 link memory 0.00 Mb (peak 0.00 Mb)
+--- Starting Cplex
+
+
+--- MIP status (101): integer optimal solution.
+--- Cplex Time: 0.00sec (det. 0.10 ticks)
+
+--- Returning a primal only solution to GAMS (marginals all set to NA).
+--- Fixing integer variables and solving final LP...
+
+
+--- Fixed MIP status (1): optimal.
+--- Cplex Time: 0.00sec (det. 0.01 ticks)
+
+
+Proven optimal solution
+MIP Solution:           15.000000    (3 iterations, 0 nodes)
+Final Solve:            15.000000    (0 iterations)
+
+Best possible:          15.000000
+Absolute gap:            0.000000
+Relative gap:            0.000000
+
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- EQU objective~          .              .              .             1.0000      
+
+---- EQU unicidadEmpleado  
+
+          LOWER          LEVEL          UPPER         MARGINAL
+
+e1         1.0000         1.0000         1.0000          .          
+e2         1.0000         1.0000         1.0000          .          
+e3         1.0000         1.0000         1.0000          .          
+e4         1.0000         1.0000         1.0000          .          
+
+---- EQU unicidadEmpleo  
+
+          LOWER          LEVEL          UPPER         MARGINAL
+
+t1         1.0000         1.0000         1.0000          .          
+t2         1.0000         1.0000         1.0000          .          
+t3         1.0000         1.0000         1.0000          .          
+t4         1.0000         1.0000         1.0000          .          
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- VAR z                 -INF           15.0000        +INF             .          
+
+  z  Función objetivo
+
+---- VAR X  Determina la relación empleado-trabajo
+
+             LOWER          LEVEL          UPPER         MARGINAL
+
+e1.t1          .              .             1.0000        14.0000      
+e1.t2          .             1.0000         1.0000         5.0000      
+e1.t3          .              .             1.0000         8.0000      
+e1.t4          .              .             1.0000         7.0000      
+e2.t1          .              .             1.0000         2.0000      
+e2.t2          .              .             1.0000        12.0000      
+e2.t3          .              .             1.0000         6.0000      
+e2.t4          .             1.0000         1.0000         5.0000      
+e3.t1          .              .             1.0000         7.0000      
+e3.t2          .              .             1.0000         8.0000      
+e3.t3          .             1.0000         1.0000         3.0000      
+e3.t4          .              .             1.0000         9.0000      
+e4.t1          .             1.0000         1.0000         2.0000      
+e4.t2          .              .             1.0000         4.0000      
+e4.t3          .              .             1.0000         6.0000      
+e4.t4          .              .             1.0000        10.0000      
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+GAMS 45.7.0  64fbf3ce Jan 18, 2024          WEX-WEI x86 64bit/MS Windows - 03/06/24 16:38:29 Page 7
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+E x e c u t i o n
+
+
+----     27 Relación Empleado - Trabajo: 
+
+----     27 VARIABLE X.L  Determina la relación empleado-trabajo
+
+            t1          t2          t3          t4
+
+e1                   1.000
+e2                                           1.000
+e3                               1.000
+e4       1.000
+
+
+----     28 Mínimo de horas: 
+            VARIABLE z.L                   =       15.000  Función objetivo
+
+
+EXECUTION TIME       =        0.047 SECONDS      4 MB  45.7.0 64fbf3ce WEX-WEI
+
+
+USER: GAMS Demo, for EULA and demo limitations see   G230930/0001CB-GEN
+      https://www.gams.com/latest/docs/UG%5FLicense.html         DC0000
+
+
+**** FILE SUMMARY
+
+Input      D:\Biblioteca\Escritorio\Universidad\MOS\EmpleadosIT\EmpleadosIT.gms
+Output     D:\Biblioteca\Escritorio\Universidad\MOS\EmpleadosIT\EmpleadosIT.lst

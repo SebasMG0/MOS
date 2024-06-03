@@ -1,0 +1,19 @@
+B 3 C o m p i l a t i o n
+B 51 Equation Listing    SOLVE model1 Using MIP From line 37
+D 54 objectiveFunction
+D 59 capacidadBuses
+D 68 limitacionBuses
+B 78 Column Listing      SOLVE model1 Using MIP From line 37
+E 81 x
+E 103 z
+B 111 Range Statistics    SOLVE model1 Using MIP From line 37
+B 122 Model Statistics    SOLVE model1 Using MIP From line 37
+B 135 Solution Report     SOLVE model1 Using MIP From line 37
+F 180 objectiveFunction
+F 182 capacidadBuses
+F 190 limitacionBuses
+G 198 x
+G 214 z
+B 222 E x e c u t i o n
+I 224 z
+I 225 x

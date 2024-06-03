@@ -1,0 +1,21 @@
+B 3 C o m p i l a t i o n
+B 46 Equation Listing    SOLVE model1 Using LP From line 32
+D 49 objectiveFunction
+D 54 restriccionOferta
+D 63 restriccionDemanda
+B 75 Column Listing      SOLVE model1 Using LP From line 32
+E 78 x
+E 100 z
+B 108 Range Statistics    SOLVE model1 Using LP From line 32
+B 119 Model Statistics    SOLVE model1 Using LP From line 32
+B 132 Solution Report     SOLVE model1 Using LP From line 32
+F 165 objectiveFunction
+F 167 restriccionOferta
+F 175 restriccionDemanda
+G 184 x
+G 203 z
+B 211 E x e c u t i o n
+I 213 "Relación ..."
+I 214 x
+I 224 "Costo tota..."
+I 225 z

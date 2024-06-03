@@ -1,0 +1,47 @@
+
+--- Job EmpleadosIT.gms Start 02/19/24 20:37:15 45.7.0 64fbf3ce WEX-WEI x86 64bit/MS Windows
+--- Applying:
+    D:\Apps\GAMS\gmsprmNT.txt
+--- GAMS Parameters defined
+    Input D:\Biblioteca\Escritorio\Universidad\MOS\EmpleadosIT\EmpleadosIT.gms
+    PageSize 0
+    ScrDir D:\Biblioteca\Escritorio\Universidad\MOS\EmpleadosIT\225a\
+    SysDir D:\Apps\GAMS\
+    LogOption 3
+    ErrMsg 1
+    ErrorLog 99
+    IDE 1
+    LstTitleLeftAligned 1
+Licensee: GAMS Demo, for EULA and demo limitations see   G230930/0001CB-GEN
+          https://www.gams.com/latest/docs/UG%5FLicense.html         DC0000
+          D:\Apps\GAMS\gamslice.txt
+          Demo license for demonstration and instructional purposes only
+Processor information: 1 socket(s), 4 core(s), and 8 thread(s) available
+GAMS 45.7.0   Copyright (C) 1987-2024 GAMS Development. All rights reserved
+--- Starting compilation
+--- EmpleadosIT.gms(17) 3 Mb 2 Errors
+*** Error 140 in D:\Biblioteca\Escritorio\Universidad\MOS\EmpleadosIT\EmpleadosIT.gms
+    Unknown symbol
+*** Error  36 in D:\Biblioteca\Escritorio\Universidad\MOS\EmpleadosIT\EmpleadosIT.gms
+    '=' or '..' or ':=' or '$=' operator expected
+    rest of statement ignored
+--- EmpleadosIT.gms(25) 3 Mb 3 Errors
+*** Error 257 in D:\Biblioteca\Escritorio\Universidad\MOS\EmpleadosIT\EmpleadosIT.gms
+    Solve statement not checked because of previous errors
+--- EmpleadosIT.gms(27) 3 Mb 4 Errors
+*** Error 141 in D:\Biblioteca\Escritorio\Universidad\MOS\EmpleadosIT\EmpleadosIT.gms
+    Symbol declared but no values have been assigned. Check for missing
+       data definition, assignment, data loading or implicit assignment
+       via a solve statement. Suppress with $onImplicitAssign.
+       A wild shot: You may have spurious commas in the explanatory
+       text of a declaration. Check symbol reference list.
+--- EmpleadosIT.gms(28) 3 Mb 5 Errors
+*** Error 141 in D:\Biblioteca\Escritorio\Universidad\MOS\EmpleadosIT\EmpleadosIT.gms
+    Symbol declared but no values have been assigned. Check for missing
+       data definition, assignment, data loading or implicit assignment
+       via a solve statement. Suppress with $onImplicitAssign.
+       A wild shot: You may have spurious commas in the explanatory
+       text of a declaration. Check symbol reference list.
+--- EmpleadosIT.gms(28) 3 Mb 5 Errors
+*** Status: Compilation error(s)
+--- Job EmpleadosIT.gms Stop 02/19/24 20:37:15 elapsed 0:00:00.006

@@ -1,0 +1,316 @@
+GAMS 45.7.0  64fbf3ce Jan 18, 2024          WEX-WEI x86 64bit/MS Windows - 03/06/24 23:08:22 Page 1
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+C o m p i l a t i o n
+
+
+   1  Sets
+   2      i Origen (filas) /o1, o2, o3/
+   3      j  Destino (columnas) /d1, d2/;
+   4   
+   5  Parameters
+   6      ofertaKernel(i) /o1 60, o2 80, o3 50/
+   7      demandaKernel(j) /d1 100, d2 90/
+   8   
+   9      ofertaUser(i) /o1 80, o2 50, o3 50/
+  10      demandaUser(j) /d1 60, d2 120/
+  11  ;
+  12   
+  13  Table costos(i, j)
+  14       d1    d2
+  15  o1   300   500
+  16  o2   200   300
+  17  o3   600   300
+  18  ;
+  19   
+  20  Positive Variables
+  21      k(i, j)
+  22      u(i, j);
+  23   
+  24   
+  25  Variables
+  26      z;
+  27   
+  28  Equations
+  29      objectiveFunction
+  30      restriccionDemandaKernel(j)
+  31      restriccionDemandaUser(j)
+  32      restriccionOfertaKernel(i)
+  33      restriccionOfertaUser(i)
+  34  ;
+  35   
+  36  objectiveFunction               ..  z=e= sum((i, j), ( k(i, j)+u(i,j))*costos(i, j) );
+  37  restriccionDemandaKernel(j)     ..  sum(i, k(i, j)) =e= demandaKernel(j);
+  38  restriccionDemandaUser(j)       ..  sum(i, u(i, j)) =e= demandaUser(j);
+  39  restriccionOfertaKernel(i)      ..  sum(j, k(i, j)) =l= ofertaKernel(i);
+  40  restriccionOfertaUser(i)        ..  sum(j, u(i, j)) =l= ofertaUser(i);
+  41   
+  42   
+  43  Model model1 /all/ ;
+  44  option mip=cplex;
+  45  Solve model1 using lp minimizing z;
+  46   
+  47  Display 'Relación Oferta-Demanda Kernel: ', k.l;
+  48  Display 'Relación Oferta-Demanda User: ', u.l;
+  49  Display 'Costo total: ', z.l;
+
+
+COMPILATION TIME     =        0.000 SECONDS      3 MB  45.7.0 64fbf3ce WEX-WEI
+GAMS 45.7.0  64fbf3ce Jan 18, 2024          WEX-WEI x86 64bit/MS Windows - 03/06/24 23:08:22 Page 2
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Equation Listing    SOLVE model1 Using LP From line 45
+
+
+---- objectiveFunction  =E=  
+
+objectiveFunction..  - 300*k(o1,d1) - 500*k(o1,d2) - 200*k(o2,d1) - 300*k(o2,d2) - 600*k(o3,d1) - 300*k(o3,d2) - 300*u(o1,d1) - 500*u(o1,d2) - 200*u(o2,d1) - 300*u(o2,d2) - 600*u(o3,d1) - 300*u(o3,d2) + z =E= 0 ; (LHS = 0)
+     
+
+---- restriccionDemandaKernel  =E=  
+
+restriccionDemandaKernel(d1)..  k(o1,d1) + k(o2,d1) + k(o3,d1) =E= 100 ; (LHS = 0, INFES = 100 ****)
+     
+restriccionDemandaKernel(d2)..  k(o1,d2) + k(o2,d2) + k(o3,d2) =E= 90 ; (LHS = 0, INFES = 90 ****)
+     
+
+---- restriccionDemandaUser  =E=  
+
+restriccionDemandaUser(d1)..  u(o1,d1) + u(o2,d1) + u(o3,d1) =E= 60 ; (LHS = 0, INFES = 60 ****)
+     
+restriccionDemandaUser(d2)..  u(o1,d2) + u(o2,d2) + u(o3,d2) =E= 120 ; (LHS = 0, INFES = 120 ****)
+     
+
+---- restriccionOfertaKernel  =L=  
+
+restriccionOfertaKernel(o1)..  k(o1,d1) + k(o1,d2) =L= 60 ; (LHS = 0)
+     
+restriccionOfertaKernel(o2)..  k(o2,d1) + k(o2,d2) =L= 80 ; (LHS = 0)
+     
+restriccionOfertaKernel(o3)..  k(o3,d1) + k(o3,d2) =L= 50 ; (LHS = 0)
+     
+
+---- restriccionOfertaUser  =L=  
+
+restriccionOfertaUser(o1)..  u(o1,d1) + u(o1,d2) =L= 80 ; (LHS = 0)
+     
+restriccionOfertaUser(o2)..  u(o2,d1) + u(o2,d2) =L= 50 ; (LHS = 0)
+     
+restriccionOfertaUser(o3)..  u(o3,d1) + u(o3,d2) =L= 50 ; (LHS = 0)
+     
+GAMS 45.7.0  64fbf3ce Jan 18, 2024          WEX-WEI x86 64bit/MS Windows - 03/06/24 23:08:22 Page 3
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Column Listing      SOLVE model1 Using LP From line 45
+
+
+---- k  
+
+k(o1,d1)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+     -300       objectiveFunction
+        1       restriccionDemandaKernel(d1)
+        1       restriccionOfertaKernel(o1)
+
+k(o1,d2)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+     -500       objectiveFunction
+        1       restriccionDemandaKernel(d2)
+        1       restriccionOfertaKernel(o1)
+
+k(o2,d1)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+     -200       objectiveFunction
+        1       restriccionDemandaKernel(d1)
+        1       restriccionOfertaKernel(o2)
+
+REMAINING 3 ENTRIES SKIPPED
+
+---- u  
+
+u(o1,d1)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+     -300       objectiveFunction
+        1       restriccionDemandaUser(d1)
+        1       restriccionOfertaUser(o1)
+
+u(o1,d2)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+     -500       objectiveFunction
+        1       restriccionDemandaUser(d2)
+        1       restriccionOfertaUser(o1)
+
+u(o2,d1)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+     -200       objectiveFunction
+        1       restriccionDemandaUser(d1)
+        1       restriccionOfertaUser(o2)
+
+REMAINING 3 ENTRIES SKIPPED
+
+---- z  
+
+z
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+        1       objectiveFunction
+
+GAMS 45.7.0  64fbf3ce Jan 18, 2024          WEX-WEI x86 64bit/MS Windows - 03/06/24 23:08:22 Page 4
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Range Statistics    SOLVE model1 Using LP From line 45
+
+
+RANGE STATISTICS (ABSOLUTE NON-ZERO FINITE VALUES)
+
+RHS       [min, max] : [ 5.000E+01, 1.200E+02] - Zero values observed as well
+Bound     [min, max] : [        NA,        NA] - Zero values observed as well
+Matrix    [min, max] : [ 1.000E+00, 6.000E+02]
+
+GAMS 45.7.0  64fbf3ce Jan 18, 2024          WEX-WEI x86 64bit/MS Windows - 03/06/24 23:08:22 Page 5
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Model Statistics    SOLVE model1 Using LP From line 45
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           5     SINGLE EQUATIONS           11
+BLOCKS OF VARIABLES           3     SINGLE VARIABLES           13
+NON ZERO ELEMENTS            37
+
+
+GENERATION TIME      =        1.828 SECONDS      4 MB  45.7.0 64fbf3ce WEX-WEI
+GAMS 45.7.0  64fbf3ce Jan 18, 2024          WEX-WEI x86 64bit/MS Windows - 03/06/24 23:08:22 Page 6
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Solution Report     SOLVE model1 Using LP From line 45
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   model1              OBJECTIVE  z
+     TYPE    LP                  DIRECTION  MINIMIZE
+     SOLVER  CPLEX               FROM LINE  45
+
+**** SOLVER STATUS     1 Normal Completion
+**** MODEL STATUS      1 Optimal
+**** OBJECTIVE VALUE           111000.0000
+
+ RESOURCE USAGE, LIMIT          0.063 10000000000.000
+ ITERATION COUNT, LIMIT         5    2147483647
+*** This solver runs with a demo license. No commercial use.
+--- GMO setup time: 0.00s
+--- GMO memory 0.50 Mb (peak 0.50 Mb)
+--- Dictionary memory 0.00 Mb
+--- Cplex 22.1.1.0 link memory 0.00 Mb (peak 0.00 Mb)
+--- Starting Cplex
+
+
+--- LP status (1): optimal.
+--- Cplex Time: 0.06sec (det. 0.02 ticks)
+
+
+Optimal solution found
+Objective:       111000.000000
+
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- EQU objective~          .              .              .             1.0000      
+
+---- EQU restriccionDemandaKernel  
+
+          LOWER          LEVEL          UPPER         MARGINAL
+
+d1       100.0000       100.0000       100.0000       300.0000      
+d2        90.0000        90.0000        90.0000       400.0000      
+
+---- EQU restriccionDemandaUser  
+
+          LOWER          LEVEL          UPPER         MARGINAL
+
+d1        60.0000        60.0000        60.0000       300.0000      
+d2       120.0000       120.0000       120.0000       500.0000      
+
+---- EQU restriccionOfertaKernel  
+
+          LOWER          LEVEL          UPPER         MARGINAL
+
+o1        -INF           60.0000        60.0000          .          
+o2        -INF           80.0000        80.0000      -100.0000      
+o3        -INF           50.0000        50.0000      -100.0000      
+
+---- EQU restriccionOfertaUser  
+
+          LOWER          LEVEL          UPPER         MARGINAL
+
+o1        -INF           80.0000        80.0000          .          
+o2        -INF           50.0000        50.0000      -200.0000      
+o3        -INF           50.0000        50.0000      -200.0000      
+
+---- VAR k  
+
+             LOWER          LEVEL          UPPER         MARGINAL
+
+o1.d1          .            60.0000        +INF             .          
+o1.d2          .              .            +INF          100.0000      
+o2.d1          .            40.0000        +INF             .          
+o2.d2          .            40.0000        +INF             .          
+o3.d1          .              .            +INF          400.0000      
+o3.d2          .            50.0000        +INF             .          
+
+---- VAR u  
+
+             LOWER          LEVEL          UPPER         MARGINAL
+
+o1.d1          .            60.0000        +INF             .          
+o1.d2          .            20.0000        +INF             .          
+o2.d1          .              .            +INF          100.0000      
+o2.d2          .            50.0000        +INF             .          
+o3.d1          .              .            +INF          500.0000      
+o3.d2          .            50.0000        +INF             .          
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- VAR z                 -INF       111000.0000        +INF             .          
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+GAMS 45.7.0  64fbf3ce Jan 18, 2024          WEX-WEI x86 64bit/MS Windows - 03/06/24 23:08:22 Page 7
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+E x e c u t i o n
+
+
+----     47 Relación Oferta-Demanda Kernel: 
+
+----     47 VARIABLE k.L  
+
+            d1          d2
+
+o1      60.000
+o2      40.000      40.000
+o3                  50.000
+
+
+----     48 Relación Oferta-Demanda User: 
+
+----     48 VARIABLE u.L  
+
+            d1          d2
+
+o1      60.000      20.000
+o2                  50.000
+o3                  50.000
+
+
+----     49 Costo total: 
+            VARIABLE z.L                   =   111000.000  
+
+
+EXECUTION TIME       =        1.938 SECONDS      4 MB  45.7.0 64fbf3ce WEX-WEI
+
+
+USER: GAMS Demo, for EULA and demo limitations see   G230930/0001CB-GEN
+      https://www.gams.com/latest/docs/UG%5FLicense.html         DC0000
+
+
+**** FILE SUMMARY
+
+Input      D:\Biblioteca\Escritorio\Universidad\MOS\Lab 2\1.Procesamiento.gms
+Output     D:\Biblioteca\Escritorio\Universidad\MOS\Lab 2\1.Procesamiento.lst

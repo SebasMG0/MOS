@@ -1,0 +1,25 @@
+B 3 C o m p i l a t i o n
+B 65 Equation Listing    SOLVE model1 Using MIP From line 50
+D 68 objectiveFunction
+D 73 sourceNode
+D 78 destinationNode
+D 83 intermediateNode
+B 95 Column Listing      SOLVE model1 Using MIP From line 50
+E 98 x
+E 118 z
+B 126 Range Statistics    SOLVE model1 Using MIP From line 50
+B 137 Model Statistics    SOLVE model1 Using MIP From line 50
+B 150 Solution Report     SOLVE model1 Using MIP From line 50
+F 195 objectiveFunction
+F 199 sourceNode
+F 205 destinationNode
+F 211 intermediateNode
+G 221 x
+G 277 z
+B 287 E x e c u t i o n
+I 289 "Distancias..."
+I 290 d
+I 304 "Nodos sele..."
+I 305 x
+I 314 "Distancia ..."
+I 315 z

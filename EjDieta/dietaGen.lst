@@ -1,0 +1,252 @@
+GAMS 45.7.0  64fbf3ce Jan 18, 2024          WEX-WEI x86 64bit/MS Windows - 02/19/24 12:30:00 Page 1
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+C o m p i l a t i o n
+
+
+   1  Sets
+   2      i Tipo de alimento (filas) /c, a, l, p/
+   3      j Valor nutricional (columnas) /cal, prot, az, gra, car/;
+   4   
+   5  Table VN(i, j)
+   6              cal     prot    az      gra     car
+   7  c           287     26      0       19.3    0
+   8  a           204     4.2     0.01    0.5     44.1
+   9  l           146     8       13      8       11
+  10  p           245     6       25      0.8     55;
+  11   
+  12  Parameters
+  13      k(j) Valor requerido OMS /cal 1500, prot 63, az 25, gra 50, car 200/;
+  14   
+  15  Variables
+  16    C     Cantidad de Carne.
+  17    A     Cantidad de Arroz.
+  18    L     Cantidad de Leche.
+  19    P     Cantidad de Pan.
+  20    z     Objective function;
+  21   
+  22  Positive variable C, A, L, P;
+  23   
+  24  Equations
+  25  objectiveFunction
+  26  mayores (j)
+  27  menores (j);
+  28   
+  29  objectiveFunction              ..  z =e= 3000*C + 1000*A + 600*L + 700*P;
+  30  mayores (j)  $(ord(j)<= 2)     ..  C*VN('c', j)+ A*VN('a', j)+ L*VN('l', j)+ P*VN('p', j) =g= k(j);
+  31  menores (j)  $(ord(j)> 2)      ..  C*VN('c', j)+ A*VN('a', j)+ L*VN('l', j)+ P*VN('p', j) =l= k(j);
+  32   
+  33  Model model1 /all/ ;
+  34  option lp=CPLEX;
+  35  Solve model1 using lp min z;
+  36   
+  37  Display C.l;
+  38  Display A.l;
+  39  Display L.l;
+  40  Display P.l;
+  41  Display z.l;
+
+
+COMPILATION TIME     =        0.000 SECONDS      3 MB  45.7.0 64fbf3ce WEX-WEI
+GAMS 45.7.0  64fbf3ce Jan 18, 2024          WEX-WEI x86 64bit/MS Windows - 02/19/24 12:30:00 Page 2
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Equation Listing    SOLVE model1 Using LP From line 35
+
+
+---- objectiveFunction  =E=  
+
+objectiveFunction..  - 3000*C - 1000*A - 600*L - 700*P + z =E= 0 ; (LHS = 0)
+     
+
+---- mayores  =G=  
+
+mayores(cal)..  287*C + 204*A + 146*L + 245*P =G= 1500 ; (LHS = 0, INFES = 1500 ****)
+     
+mayores(prot)..  26*C + 4.2*A + 8*L + 6*P =G= 63 ; (LHS = 0, INFES = 63 ****)
+     
+
+---- menores  =L=  
+
+menores(az)..  0.01*A + 13*L + 25*P =L= 25 ; (LHS = 0)
+     
+menores(gra)..  19.3*C + 0.5*A + 8*L + 0.8*P =L= 50 ; (LHS = 0)
+     
+menores(car)..  44.1*A + 11*L + 55*P =L= 200 ; (LHS = 0)
+     
+GAMS 45.7.0  64fbf3ce Jan 18, 2024          WEX-WEI x86 64bit/MS Windows - 02/19/24 12:30:00 Page 3
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Column Listing      SOLVE model1 Using LP From line 35
+
+
+---- C  Cantidad de Carne.
+
+C
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+    -3000       objectiveFunction
+      287       mayores(cal)
+       26       mayores(prot)
+       19.3     menores(gra)
+
+
+---- A  Cantidad de Arroz.
+
+A
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+    -1000       objectiveFunction
+      204       mayores(cal)
+        4.2     mayores(prot)
+        0.01    menores(az)
+        0.5     menores(gra)
+       44.1     menores(car)
+
+
+---- L  Cantidad de Leche.
+
+L
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+     -600       objectiveFunction
+      146       mayores(cal)
+        8       mayores(prot)
+       13       menores(az)
+        8       menores(gra)
+       11       menores(car)
+
+
+---- P  Cantidad de Pan.
+
+P
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+     -700       objectiveFunction
+      245       mayores(cal)
+        6       mayores(prot)
+       25       menores(az)
+        0.8     menores(gra)
+       55       menores(car)
+
+
+---- z  Objective function
+
+z
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+        1       objectiveFunction
+
+GAMS 45.7.0  64fbf3ce Jan 18, 2024          WEX-WEI x86 64bit/MS Windows - 02/19/24 12:30:00 Page 4
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Range Statistics    SOLVE model1 Using LP From line 35
+
+
+RANGE STATISTICS (ABSOLUTE NON-ZERO FINITE VALUES)
+
+RHS       [min, max] : [ 2.500E+01, 1.500E+03] - Zero values observed as well
+Bound     [min, max] : [        NA,        NA] - Zero values observed as well
+Matrix    [min, max] : [ 1.000E-02, 3.000E+03]
+
+GAMS 45.7.0  64fbf3ce Jan 18, 2024          WEX-WEI x86 64bit/MS Windows - 02/19/24 12:30:00 Page 5
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Model Statistics    SOLVE model1 Using LP From line 35
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           3     SINGLE EQUATIONS            6
+BLOCKS OF VARIABLES           5     SINGLE VARIABLES            5
+NON ZERO ELEMENTS            23
+
+
+GENERATION TIME      =        0.015 SECONDS      4 MB  45.7.0 64fbf3ce WEX-WEI
+GAMS 45.7.0  64fbf3ce Jan 18, 2024          WEX-WEI x86 64bit/MS Windows - 02/19/24 12:30:00 Page 6
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Solution Report     SOLVE model1 Using LP From line 35
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   model1              OBJECTIVE  z
+     TYPE    LP                  DIRECTION  MINIMIZE
+     SOLVER  CPLEX               FROM LINE  35
+
+**** SOLVER STATUS     1 Normal Completion
+**** MODEL STATUS      1 Optimal
+**** OBJECTIVE VALUE             9307.9977
+
+ RESOURCE USAGE, LIMIT          0.000 10000000000.000
+ ITERATION COUNT, LIMIT         4    2147483647
+*** This solver runs with a demo license. No commercial use.
+--- GMO setup time: 0.00s
+--- GMO memory 0.50 Mb (peak 0.50 Mb)
+--- Dictionary memory 0.00 Mb
+--- Cplex 22.1.1.0 link memory 0.00 Mb (peak 0.00 Mb)
+--- Starting Cplex
+
+
+--- LP status (1): optimal.
+--- Cplex Time: 0.00sec (det. 0.01 ticks)
+
+
+Optimal solution found
+Objective:         9307.997731
+
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- EQU objective~          .              .              .             1.0000      
+
+---- EQU mayores  
+
+            LOWER          LEVEL          UPPER         MARGINAL
+
+cal       1500.0000      1500.0000        +INF           10.4530      
+prot        63.0000        67.9273        +INF             .          
+
+---- EQU menores  
+
+           LOWER          LEVEL          UPPER         MARGINAL
+
+az         -INF           25.0000        25.0000       -49.5228      
+gra        -INF           43.7630        50.0000          .          
+car        -INF          200.0000       200.0000       -25.6669      
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- VAR C                   .             1.3666        +INF             .          
+---- VAR A                   .             4.0562        +INF             .          
+---- VAR L                   .             1.9200        +INF             .          
+---- VAR P                   .              .            +INF          788.7731      
+---- VAR z                 -INF         9307.9977        +INF             .          
+
+  C  Cantidad de Carne.
+  A  Cantidad de Arroz.
+  L  Cantidad de Leche.
+  P  Cantidad de Pan.
+  z  Objective function
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+GAMS 45.7.0  64fbf3ce Jan 18, 2024          WEX-WEI x86 64bit/MS Windows - 02/19/24 12:30:00 Page 7
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+E x e c u t i o n
+
+
+----     37 VARIABLE C.L                   =        1.367  Cantidad de Carne.
+
+----     38 VARIABLE A.L                   =        4.056  Cantidad de Arroz.
+
+----     39 VARIABLE L.L                   =        1.920  Cantidad de Leche.
+
+----     40 VARIABLE P.L                   =        0.000  Cantidad de Pan.
+
+----     41 VARIABLE z.L                   =     9307.998  Objective function
+
+
+EXECUTION TIME       =        0.078 SECONDS      4 MB  45.7.0 64fbf3ce WEX-WEI
+
+
+USER: GAMS Demo, for EULA and demo limitations see   G230930/0001CB-GEN
+      https://www.gams.com/latest/docs/UG%5FLicense.html         DC0000
+
+
+**** FILE SUMMARY
+
+Input      D:\Biblioteca\Escritorio\Universidad\MOS\EjDieta\dietaGen.gms
+Output     D:\Biblioteca\Escritorio\Universidad\MOS\EjDieta\dietaGen.lst

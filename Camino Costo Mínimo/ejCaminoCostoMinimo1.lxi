@@ -1,0 +1,22 @@
+B 3 C o m p i l a t i o n
+B 57 Equation Listing    SOLVE model1 Using MIP From line 41
+D 60 objectiveFunction
+D 65 sourceNode
+D 70 destinationNode
+D 75 intermediateNode
+B 85 Column Listing      SOLVE model1 Using MIP From line 41
+E 88 x
+E 109 z
+B 117 Range Statistics    SOLVE model1 Using MIP From line 41
+B 128 Model Statistics    SOLVE model1 Using MIP From line 41
+B 141 Solution Report     SOLVE model1 Using MIP From line 41
+F 186 objectiveFunction
+F 190 sourceNode
+F 196 destinationNode
+F 202 intermediateNode
+G 210 x
+G 242 z
+B 252 E x e c u t i o n
+I 252 c
+I 264 x
+I 274 z

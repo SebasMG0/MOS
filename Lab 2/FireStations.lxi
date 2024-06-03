@@ -1,0 +1,17 @@
+B 3 C o m p i l a t i o n
+B 45 Equation Listing    SOLVE vertexCover Using MIP From line 32
+D 48 objectiveFunction
+D 53 coberturaTotal
+B 65 Column Listing      SOLVE vertexCover Using MIP From line 32
+E 68 x
+E 91 z
+B 99 Range Statistics    SOLVE vertexCover Using MIP From line 32
+B 110 Model Statistics    SOLVE vertexCover Using MIP From line 32
+B 123 Solution Report     SOLVE vertexCover Using MIP From line 32
+F 168 objectiveFunction
+F 170 coberturaTotal
+G 181 x
+G 194 z
+B 202 E x e c u t i o n
+I 204 "-> Pueblos..."
+I 205 x

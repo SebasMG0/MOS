@@ -1,0 +1,21 @@
+B 3 C o m p i l a t i o n
+B 41 Equation Listing    SOLVE model1 Using MIP From line 27
+D 44 objectiveFunction
+D 49 unicidadTecnica
+D 60 unicidadCientifico
+B 72 Column Listing      SOLVE model1 Using MIP From line 27
+E 75 z
+E 82 X
+B 105 Range Statistics    SOLVE model1 Using MIP From line 27
+B 116 Model Statistics    SOLVE model1 Using MIP From line 27
+B 129 Solution Report     SOLVE model1 Using MIP From line 27
+F 174 objectiveFunction
+F 176 unicidadTecnica
+F 185 unicidadCientifico
+G 198 z
+G 202 X
+B 237 E x e c u t i o n
+I 239 "Relación ..."
+I 240 X
+I 251 "Puntos tot..."
+I 252 z

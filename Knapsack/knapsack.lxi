@@ -1,0 +1,21 @@
+B 3 C o m p i l a t i o n
+B 49 Equation Listing    SOLVE knapsack Using MIP From line 32
+D 52 objectiveFunction
+D 57 restriccionPeso
+B 63 Column Listing      SOLVE knapsack Using MIP From line 32
+E 66 z
+E 73 X
+B 93 Range Statistics    SOLVE knapsack Using MIP From line 32
+B 104 Model Statistics    SOLVE knapsack Using MIP From line 32
+B 117 Solution Report     SOLVE knapsack Using MIP From line 32
+F 162 objectiveFunction
+F 163 restriccionPeso
+G 167 z
+G 171 X
+B 187 E x e c u t i o n
+I 189 "Elementos ..."
+I 190 X
+I 196 "Valor máx..."
+I 197 z
+I 199 "Peso alcan..."
+I 200 p

@@ -1,0 +1,101 @@
+GAMS 46.3.0  cc87b1db Mar 19, 2024          WEX-WEI x86 64bit/MS Windows - 04/03/24 23:57:33 Page 1
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+C o m p i l a t i o n
+
+
+   1  Sets
+   2      i /c1*c8/
+   3      j   /d1, d2/,
+   4      tipo /blues, rock, n/,
+   5      duracion /d/;
+   6   
+   7   
+   8  Parameter canciones(i, tipo)
+   9      blues   rock    n
+  10  c1  1   0   0
+  11  c2  0   1   0
+  12  c3  1   0   0
+  13  c4  0   1   0
+  14  c5  1   0   0
+  15  c6  0   1   0
+  16  c7  0   0   1
+  17  c8  1   1   0;
+  18   
+  19   
+  20   parameter duraciones(i, duracion)
+  21      d
+  22  c1  4
+  23  c2  5
+  24  c3  3
+  25  c4  2
+  26  c5  4
+  27  c6  3
+  28  c7  5
+  29  c8  4;
+  30   
+  31  parameters len /min 14, max 16/;
+  32  parameters requerimientos(tipo) /blues 2, rock 3, n 0/;
+  33   
+  34   
+  35  Variables z;
+  36  Binary Variable a(i), b(i);
+  37  Equations
+  38      objectiveFunction,
+  39      seleccion,
+  40      longituda,
+  41      longitudab,
+  42      longitudb,
+  43      longitudbb,
+  44      reqa(tipo),
+  45      reqb(tipo),
+  46      r1,
+  47      r2;
+  48   
+  49  objectiveFunction              ..  z =e= sum(i, a(i) + b(i));
+  50  seleccion                      ..  sum(i, a(i) + b(i))=e= card(i);
+  51   
+  52  longituda .. sum(i, a(i)*duraciones(i, 'd')) =g= len('min');
+  53  longitudab .. sum(i, a(i)*duraciones(i, 'd')) =l= len('max');
+  54  longitudb .. sum(i, b(i)*duraciones(i, 'd')) =g= len('min');
+  55  longitudbb .. sum(i, b(i)*duraciones(i, 'd'))  =l= len('max');
+  56   
+  57  reqa (tipo)       .. sum(i, a(i)*canciones(i, tipo))=e= requerimientos(tipo);
+  58  reqb (tipo)       .. sum(i, b(i)*canciones(i, tipo))=e= requerimientos(tipo);
+  59   
+  60  r1          ..  1-a('c3')=g= a('c5');
+  61  r2 .. a('c2') + a('c4') - a('c1') =l= 1;
+  62   
+  63   
+  64  Model model1 /all/ ;
+  65  option mip=cplex;
+  66  Solve model1 using mip maximizing z;
+****                                     $66,256
+****  66  The symbol shown has not been defined or assigned
+****         A wild shot: You may have spurious commas in the explanatory
+****         text of a declaration. Check symbol reference list.
+**** 256  Error(s) in analyzing solve statement.
+**** The following MIP errors were detected in model model1:
+****  66 equation longituda.. symbol "duraciones" has no values assigned
+****  66 equation reqa.. symbol "canciones" has no values assigned
+  67   
+  68  Display 'Cara A', a.l;
+  69  Display 'Cara B', b.l;
+  70   
+
+**** 2 ERROR(S)   0 WARNING(S)
+
+
+COMPILATION TIME     =        0.000 SECONDS      3 MB  46.3.0 cc87b1db WEX-WEI
+
+
+USER: GAMS Community License for Sebastian Murcia    G240125|0002AO-GEN
+      Universidad de los Andes, Computer and Systems Engineering CL9328
+      License for teaching and research at degree granting institutions
+
+
+**** FILE SUMMARY
+
+Input      D:\Biblioteca\Escritorio\Universidad\MOS\Lab 3\songs.gms
+Output     D:\Biblioteca\Escritorio\Universidad\MOS\Lab 3\songs.lst
+
+**** USER ERROR(S) ENCOUNTERED

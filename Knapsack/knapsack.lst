@@ -1,0 +1,214 @@
+GAMS 45.7.0  64fbf3ce Jan 18, 2024          WEX-WEI x86 64bit/MS Windows - 02/19/24 20:13:25 Page 1
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+C o m p i l a t i o n
+
+
+   1  Sets
+   2      i Objetos (filas) /a, b, c, d, e/
+   3      j  Valor y peso de los objetos (columnas) /Valor, Peso/;
+   4   
+   5  Table knap(i, j)
+   6      Valor   Peso
+   7  a   12       9
+   8  b   5        2
+   9  c   9        2
+  10  d   6        1
+  11  e   4        3 ;
+  12   
+  13  Variables
+  14    z     Función objetivo;
+  15   
+  16  Binary Variable X(i);
+  17   
+  18  Scalar p Peso alcanzado por los objetos en la maleta;
+  19   
+  20  Parameters W Peso máximo /10/;
+  21   
+  22  Equations
+  23      objectiveFunction
+  24      restriccionPeso;
+  25   
+  26  objectiveFunction   ..  z =e= sum(i, X(i)*knap(i, 'valor'));
+  27   
+  28  restriccionPeso     ..  sum(i, X(i)*knap(i, 'peso')) =l= W;
+  29   
+  30   
+  31  Model knapsack /all/;
+  32  Solve knapsack using MIP maximizing z;
+  33   
+  34  p= sum(i, X.l(i)*knap(i, 'Peso'));
+  35   
+  36  display 'Elementos escogidos:', X.l;
+  37  display 'Valor máximo alcanzado: ', z.l;
+  38  display 'Peso alcanzado: ', p;
+
+
+COMPILATION TIME     =        0.000 SECONDS      3 MB  45.7.0 64fbf3ce WEX-WEI
+GAMS 45.7.0  64fbf3ce Jan 18, 2024          WEX-WEI x86 64bit/MS Windows - 02/19/24 20:13:25 Page 2
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Equation Listing    SOLVE knapsack Using MIP From line 32
+
+
+---- objectiveFunction  =E=  
+
+objectiveFunction..  z - 12*X(a) - 5*X(b) - 9*X(c) - 6*X(d) - 4*X(e) =E= 0 ; (LHS = 0)
+     
+
+---- restriccionPeso  =L=  
+
+restriccionPeso..  9*X(a) + 2*X(b) + 2*X(c) + X(d) + 3*X(e) =L= 10 ; (LHS = 0)
+     
+GAMS 45.7.0  64fbf3ce Jan 18, 2024          WEX-WEI x86 64bit/MS Windows - 02/19/24 20:13:25 Page 3
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Column Listing      SOLVE knapsack Using MIP From line 32
+
+
+---- z  Función objetivo
+
+z
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+        1       objectiveFunction
+
+
+---- X  
+
+X(a)
+                (.LO, .L, .UP, .M = 0, 0, 1, 0)
+      -12       objectiveFunction
+        9       restriccionPeso
+
+X(b)
+                (.LO, .L, .UP, .M = 0, 0, 1, 0)
+       -5       objectiveFunction
+        2       restriccionPeso
+
+X(c)
+                (.LO, .L, .UP, .M = 0, 0, 1, 0)
+       -9       objectiveFunction
+        2       restriccionPeso
+
+REMAINING 2 ENTRIES SKIPPED
+GAMS 45.7.0  64fbf3ce Jan 18, 2024          WEX-WEI x86 64bit/MS Windows - 02/19/24 20:13:25 Page 4
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Range Statistics    SOLVE knapsack Using MIP From line 32
+
+
+RANGE STATISTICS (ABSOLUTE NON-ZERO FINITE VALUES)
+
+RHS       [min, max] : [ 1.000E+01, 1.000E+01] - Zero values observed as well
+Bound     [min, max] : [ 1.000E+00, 1.000E+00] - Zero values observed as well
+Matrix    [min, max] : [ 1.000E+00, 1.200E+01]
+
+GAMS 45.7.0  64fbf3ce Jan 18, 2024          WEX-WEI x86 64bit/MS Windows - 02/19/24 20:13:25 Page 5
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Model Statistics    SOLVE knapsack Using MIP From line 32
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           2     SINGLE EQUATIONS            2
+BLOCKS OF VARIABLES           2     SINGLE VARIABLES            6
+NON ZERO ELEMENTS            11     DISCRETE VARIABLES          5
+
+
+GENERATION TIME      =        0.016 SECONDS      4 MB  45.7.0 64fbf3ce WEX-WEI
+GAMS 45.7.0  64fbf3ce Jan 18, 2024          WEX-WEI x86 64bit/MS Windows - 02/19/24 20:13:25 Page 6
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Solution Report     SOLVE knapsack Using MIP From line 32
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   knapsack            OBJECTIVE  z
+     TYPE    MIP                 DIRECTION  MAXIMIZE
+     SOLVER  CPLEX               FROM LINE  32
+
+**** SOLVER STATUS     1 Normal Completion
+**** MODEL STATUS      1 Optimal
+**** OBJECTIVE VALUE               24.0000
+
+ RESOURCE USAGE, LIMIT          0.000 10000000000.000
+ ITERATION COUNT, LIMIT         1    2147483647
+*** This solver runs with a demo license. No commercial use.
+--- GMO setup time: 0.00s
+--- GMO memory 0.50 Mb (peak 0.50 Mb)
+--- Dictionary memory 0.00 Mb
+--- Cplex 22.1.1.0 link memory 0.00 Mb (peak 0.00 Mb)
+--- Starting Cplex
+
+
+--- MIP status (101): integer optimal solution.
+--- Cplex Time: 0.00sec (det. 0.03 ticks)
+
+--- Returning a primal only solution to GAMS (marginals all set to NA).
+--- Fixing integer variables and solving final LP...
+
+
+--- Fixed MIP status (1): optimal.
+--- Cplex Time: 0.00sec (det. 0.00 ticks)
+
+
+Proven optimal solution
+MIP Solution:           24.000000    (1 iterations, 0 nodes)
+Final Solve:            24.000000    (0 iterations)
+
+Best possible:          24.000000
+Absolute gap:            0.000000
+Relative gap:            0.000000
+
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- EQU objective~          .              .              .             1.0000      
+---- EQU restricci~        -INF            8.0000        10.0000          .          
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- VAR z                 -INF           24.0000        +INF             .          
+
+  z  Función objetivo
+
+---- VAR X  
+
+         LOWER          LEVEL          UPPER         MARGINAL
+
+a          .              .             1.0000        12.0000      
+b          .             1.0000         1.0000         5.0000      
+c          .             1.0000         1.0000         9.0000      
+d          .             1.0000         1.0000         6.0000      
+e          .             1.0000         1.0000         4.0000      
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+GAMS 45.7.0  64fbf3ce Jan 18, 2024          WEX-WEI x86 64bit/MS Windows - 02/19/24 20:13:25 Page 7
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+E x e c u t i o n
+
+
+----     36 Elementos escogidos:
+
+----     36 VARIABLE X.L  
+
+b 1.000,    c 1.000,    d 1.000,    e 1.000
+
+
+----     37 Valor máximo alcanzado: 
+            VARIABLE z.L                   =       24.000  Función objetivo
+
+----     38 Peso alcanzado: 
+            PARAMETER p                    =        8.000  Peso alcanzado por los objetos en la maleta
+
+
+EXECUTION TIME       =        0.063 SECONDS      4 MB  45.7.0 64fbf3ce WEX-WEI
+
+
+USER: GAMS Demo, for EULA and demo limitations see   G230930/0001CB-GEN
+      https://www.gams.com/latest/docs/UG%5FLicense.html         DC0000
+
+
+**** FILE SUMMARY
+
+Input      D:\Biblioteca\Escritorio\Universidad\MOS\Knapsack\knapsack.gms
+Output     D:\Biblioteca\Escritorio\Universidad\MOS\Knapsack\knapsack.lst

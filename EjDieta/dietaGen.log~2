@@ -1,0 +1,69 @@
+--- Job dietaGen.gms Start 02/19/24 12:29:21 45.7.0 64fbf3ce WEX-WEI x86 64bit/MS Windows
+--- Applying:
+    D:\Apps\GAMS\gmsprmNT.txt
+--- GAMS Parameters defined
+    Input D:\Biblioteca\Escritorio\Universidad\MOS\EjDieta\dietaGen.gms
+    PageSize 0
+    ScrDir D:\Biblioteca\Escritorio\Universidad\MOS\EjDieta\225a\
+    SysDir D:\Apps\GAMS\
+    LogOption 3
+    ErrMsg 1
+    ErrorLog 99
+    IDE 1
+    LstTitleLeftAligned 1
+Licensee: GAMS Demo, for EULA and demo limitations see   G230930/0001CB-GEN
+          https://www.gams.com/latest/docs/UG%5FLicense.html         DC0000
+          D:\Apps\GAMS\gamslice.txt
+          Demo license for demonstration and instructional purposes only
+Processor information: 1 socket(s), 4 core(s), and 8 thread(s) available
+GAMS 45.7.0   Copyright (C) 1987-2024 GAMS Development. All rights reserved
+--- Starting compilation
+--- dietaGen.gms(41) 3 Mb
+--- Starting execution: elapsed 0:00:01.665
+--- dietaGen.gms(34) 4 Mb
+--- Generating LP model model1
+--- dietaGen.gms(35) 4 Mb
+---   6 rows  5 columns  23 non-zeroes
+--- Range statistics (absolute non-zero finite values)
+--- RHS       [min, max] : [ 2.500E+01, 1.500E+03] - Zero values observed as well
+--- Bound     [min, max] : [        NA,        NA] - Zero values observed as well
+--- Matrix    [min, max] : [ 1.000E-02, 3.000E+03]
+--- Executing CPLEX (Solvelink=2): elapsed 0:00:04.404
+
+IBM ILOG CPLEX   45.7.0 64fbf3ce Jan 18, 2024          WEI x86 64bit/MS Window
+
+*** This solver runs with a demo license. No commercial use.
+--- GMO setup time: 0.00s
+--- GMO memory 0.50 Mb (peak 0.50 Mb)
+--- Dictionary memory 0.00 Mb
+--- Cplex 22.1.1.0 link memory 0.00 Mb (peak 0.00 Mb)
+--- Starting Cplex
+
+Version identifier: 22.1.1.0 | 2022-11-27 | 9160aff4d
+CPXPARAM_Advance                                 0
+CPXPARAM_Simplex_Display                         2
+CPXPARAM_Threads                                 1
+CPXPARAM_MIP_Display                             4
+CPXPARAM_MIP_Pool_Capacity                       0
+CPXPARAM_MIP_Tolerances_AbsMIPGap                0
+Tried aggregator 1 time.
+LP Presolve eliminated 0 rows and 1 columns.
+Reduced LP has 5 rows, 4 columns, and 18 nonzeros.
+Presolve time = 0.00 sec. (0.00 ticks)
+
+Iteration      Dual Objective            In Variable           Out Variable
+     1 sI            0.000000                      A     menores(gra) artif
+     2           11954.695522                      C     menores(car) slack
+
+--- LP status (1): optimal.
+--- Cplex Time: 0.00sec (det. 0.01 ticks)
+
+
+Optimal solution found
+Objective:        11954.695522
+
+--- Reading solution for model model1
+--- Executing after solve: elapsed 0:00:09.373
+--- dietaGen.gms(41) 4 Mb
+*** Status: Normal completion
+--- Job dietaGen.gms Stop 02/19/24 12:29:30 elapsed 0:00:09.373
